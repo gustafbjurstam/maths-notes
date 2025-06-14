@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+
+% Load AMS packages for advanced math
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{pgfplots}
+\usepackage{enumitem}
+\pgfplotsset{compat=newest}
+
+% Load geometry package and set margins
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{sats}{Sats}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{remark}{Remark}
+
+% Shortcuts
+\newcommand{\N}{\mathbb{N}}      % natural numbers
+\newcommand{\real}{\mathbb{R}}   % real numbers
+\newcommand{\rat}{\mathbb{Q}}     % rationals
+\newcommand{\Z}{\mathbb{Z}}     % integers
+\newcommand{\eps}{\varepsilon}    % for nice epsilon
+\newcommand{\sol}{ \noindent\textbf{Solution: } }   % creates Solution:
+\newcommand{\prob}[1]{ \noindent\textbf{Problem #1.} }
+\newcommand{\C}{\mathbb{C}}    % complex numbers
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand{\algebra}{\mathscr{A}}
+\renewcommand{\L}{\mathscr{L}}
+%\newtheorem*{solution}{Solution}
+\newenvironment{solution}{\renewcommand{\proofname}{Lösning}\begin{proof}}{\end{proof}}
+\newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
+\newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
+\usepackage{parskip}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Set linespacing to 1.5
+\baselineskip 1.5em
+
+\begin{center}
+\textbf{\large Definitions used in Romans's \textit{Advanved Linear Algebra} (3rd ed)} \\
+Gustaf Bjurstam\\
+bjurstam@kth.se\\
+\end{center}
+\setcounter{section}{-1}
+\section{Selection of preliminaries}
+These are only a few of the definitions given in the Preliminaries chapter, those which were not immediately obvious to me, or those which I suspect will be used often. Zorn's lemma is also stated here.
+\begin{definition}[Multiset]
+    Let $S$ be a nonempty set. A \textit{multiset} $M$ with \textit{underlying set} $S$ is a set of ordered pairs
+    \begin{equation*}
+        M=\{(s_i,n_i) : s_i\in S, n_i\in \Z^+, s_i\neq s_j \text{ for } i\neq j\}.
+    \end{equation*}
+    The number $n_i$ is referred to as the \textit{multiplicity} of the elements $s_i$ in $M$. The \textit{size} of a multiset is the sum of the multiplicities of its elements.
+\end{definition}
+\begin{definition}[Invariant]
+    Let $\sim$ be an equivalence relation on a set $S$. A function $f:S\to T$, where $T$ is any set, is called an \textit{invariant} of $\sim$ if it is constant on the equivalence classes of $\sim$, that is, 
+    \begin{equation*}
+        a\sim b\Longrightarrow f(a)=f(b),
+    \end{equation*}
+    and a \textit{complete invariant} if it is constant and distinct on the equivalence classes of $\sim$, that is,
+    \begin{equation*}
+        a\sim b\Longleftrightarrow f(a)=f(b).
+    \end{equation*}
+\end{definition}
+\begin{definition}[Canonical forms]
+    Let $\sim$ be an equivalence relation on a set $S$. A subset $C\subseteq S$ is called a set of \textit{canonical forms}, or just a \textit{canonical form}, if  each equivalence class under $\sim$ contains exactly one member of $C$.
+\end{definition}
+\begin{definition}(Partially ordered set)
+    A \textit{partially ordered set} is a pair $(P,\leq)$ where $P$ is a nonempty set and $\leq$ is a binary relation called a \textit{partial order} with the following properties,
+    \begin{enumerate}
+        \item \textbf{(Reflexivity)} For all $a\in P$, $a \leq a$,
+        \item \textbf{(Antisymmetry)} For all $a,b\in P$, $a\leq b\leq a$ implies $a=b$,
+        \item \textbf{(Transitivity)} for all $a,b,c\in P$, $a\leq b\leq c$ implies $a\leq c$.
+    \end{enumerate}
+    Partially ordered sets are also called \textit{posets}.
+\end{definition}
+\begin{definition}
+    Let $P$ be a partially ordered set.
+    \begin{enumerate}
+        \item The \textit{maximum} (\textit{largest, top}) element of $P$ is, should it exist, an element $M\in P$  such that for all $p\in P$, $p\leq M$. Similarly, the \textit{minimum} (\textit{least, smallest, bottom}) element of $P$ is, should it exist, an element $N\in P$ such that for all $p\in P$, $N\leq p$.
+        \item A \textit{maximal element} is an element $m\in P$, such that there is no larger element in $P$, that is, $m\leq p\in P\implies p=m$. Similarly a \textit{minimal element} is an element $n\in P$ such that there is no smaller element, that is, $p\leq n\implies p=n$. 
+        \item Let $a,b\in P$. Then $u\in P$ is an \textit{upper bound} for $a$ and $b$, if $a\leq u$ and $b\leq u$. The unique smallest upper bound, if it exists, is called the \textit{least upper bound} of $a$ and $b$ and is denoted by $\text{lub}\{(a,b\}$.
+        \item Let $a,b\in P$. Then $l\in P$ is an \textit{lower bound} for $a$ and $b$, if $l\leq a$ and $l\leq b$. The unique largest lower bound, if it exists, is called the \textit{greatest lower bound} of $a$ and $b$ and is denoted by $\text{glb}\{(a,b\}$.
+        \item Let $S\subseteq P$. We say that $u\in P$ is an \textit{upper bound} of $S$, if $s\leq u$ for all $s\in S$, lower bounds of $S$ are similiarly defined.
+    \end{enumerate}
+\end{definition}
+\begin{definition}[Totally ordered set]
+    A partially ordered set is in which every pair of elements is compareable is called a \textit{totally ordered set}, or a \textit{linearly ordered set}. Any totally ordered subset of a partially ordered set $P$ is called as \textit{chain} in $P$.
+\end{definition}
+\begin{definition}[Well ordering]
+    A \textit{well ordering} on a set $X$, is a total order on $X$, with the property that every nonempty subset of $X$ has a least element.
+\end{definition}
+\begin{lemma}[Zorn's lemma]
+    If $P$ is a partially ordered set in which every chain has an upper bound, then $P$ has a maximal element.
+\end{lemma}
+\begin{remark}
+    Zorn's lemma is equivalent to the axiom of choice, and to the well ordering principle.
+\end{remark}
+\begin{theorem}[Well ordering principle]
+    Every nonempty set has a well ordering.
+\end{theorem}
+\begin{definition}[Algebra]
+    An \textit{algebra} over a field $F$ is a nonempty set $\mathcal{A}$, together with three operations, \textit{addition}, \textit{multiplication}, and \textit{scalar multiplication}, for which the following properties hold
+    \begin{enumerate}
+        \item $\mathcal{A}$ is a vector space over $F$ under addition and scalar multiplication
+        \item $A$ is a ring under addition and multiplication
+        \item If $r\in F$ and $a,b\in \mathcal{A}$, then $r(ab)=(ra)b=a(rb)$.
+    \end{enumerate}
+\end{definition}
+
+\newpage
+
+\section{Vector spaces}
+\begin{definition}[Vector space]
+Let $F$ be a field, whose elements are referred to as \textit{scalars}. A \textit{vector space} over $F$ is a nonempty set $V$, whose elements are referred to as \textit{vectors}, together with two operations. The first operation is called \textit{addition}, and denoted by $+$, assigns each pair $(u,v)\in V^2$ a vector $u+v\in V$. The second operation, called \textit{scalar multiplication}, assigns each pair $(r,u)\in F\times V$ a vector $ru\in V$. Furthermore, the following properties must be satisfied:
+\begin{enumerate}
+    \item \textbf{(Associativity of addition)} For all vectors $u,v,w\in V$
+    \begin{equation*}
+        u+(v+w)=(u+v)+w,
+    \end{equation*}
+    \item \textbf{(Commutativity of addition)} For all $u,v\in V$
+    \begin{equation*}
+        u+v=v+u,
+    \end{equation*}
+    \item \textbf{(Existence of zero)} There is a vector $0\in V$ such that for all $u\in V$
+    \begin{equation*}
+        0+u=u+0=u,
+    \end{equation*}
+    \item \textbf{(Existence of additive inverse)} For every $u\in V$ there exists a vector $-u$ such that
+    \begin{equation*}
+        u+(-u)=(-u)+u=0,
+    \end{equation*}
+    \item \textbf{(Properties of scalar multiplication)} For all scalars $a,b\in F$ and all $u,v\in V$
+    \begin{gather*}
+        a(u+v)=au+av\\
+        (a+b)u=au+bu\\
+        (ab)u=a(bu)\\
+        1u=u.
+    \end{gather*}
+\end{enumerate}
+\end{definition}
+\begin{remark}
+    Properties 1-4 can be summarised as $V$ is an abelian group under addition.
+\end{remark}
+\begin{definition}[F-space]
+    A vector space over the field $F$ is sometimes called an \textit{F-space}. A vector space over $\real$ is called a \textit{real vector space} and a vector space over $\C$ is called a \textit{complex vector space}.
+\end{definition}
+\newpage
+\begin{definition}[Linear combination]
+    Let $S$ be a nonempty subset of a vector space $V$ over $F$. A \textit{linear combination} in $S$ is an expression of the form
+    \begin{equation*}
+        a_1v_1+\dots+a_nv_n,
+    \end{equation*}
+    where $a_1,\dots, a_n\in F$ and $v_1,\dots, v_n\in S$. The scalars $a_i$ are called the \textit{coefficients} of the linear combination. A linear combination is \textit{trivial} if every coefficient is zero, otherwise it is \textit{nontrivial}.
+\end{definition}
+\begin{definition}[Subspace]
+    A \textit{subspace} of a vectors space $V$ is a subset $S$ of V that is a vector space in its own right under the operations obtained by restricting the operations of $V$ to $S$. We use the notation $S\leq V$ to indicate that $S$ is a subspace of $V$ and $S<V$ to indicate that $S$ is a \textit{proper subspace} of $V$, that is, $S\leq V$ but $S\neq V$. The \textit{zero subspace} of $V$ is $\{0\}$.
+\end{definition}
+\begin{remark}
+    The set $\mathcal{S}(V)$ of subspaces of $V$ is partially ordered by set inclusion. If $A\subseteq \mathcal{S}(V)$, then $\text{glb}(A)=\bigcap_{S_i\in A} S_i$. Similarly lub$(A)=\sum_{S_i\in A} S_i$.
+\end{remark}
+\begin{definition}
+    Let $V$ be vector space and $A\subseteq\mathcal{S}(V)$. The \textit{sum} $\sum_{S_i\in A} S_i$ is defined by 
+    \begin{equation*}
+        \sum_{S_i\in A} S_i=\left\{s_1+\dots +s_n: s_j\in \bigcup_{S_i\in A} S_i\right\}.
+    \end{equation*}
+\end{definition}
+\begin{definition}[Lattice]
+    If $P$ is a poset with the property that every pair of elements has a least upper bound and greatest lower bound, then $P$ is called a \textit{lattice}. If $P$ has a smallest, and a largest, element, and has the property that every collection of elements has a least upper bound and greatest lower bound, then $P$ is called a \textit{complete lattice}. The glb of a collection is also called the \textit{join} of the collection and the glb is called the \textit{meet}.
+\end{definition}
+\begin{definition}[External direct sum]
+    Let $V_1,\dots,V_n$ be vector spaces over a field $F$. The \textit{external direct sum} of $V_1,\dots,V_n$, denoted by $V=V_1\boxplus\dots\boxplus V_n$, is the vector space $V$ whose elements are ordered $n$-tuples, $V=\{(v_1,\dots,v_n): v_i\in V_i, i=1,2,\dots,n\}$, with component wise operations.
+\end{definition}
+\begin{definition}[Direct product]
+    Let $\mathcal{F}=\{V_i:i\in K\}$ be a family of vector spaces over a field $F$. The \textit{direct product} of $\mathcal{F}$ is the vector space
+    \begin{equation*}
+        \prod_{i\in K} V_i=\left\{f:K\to\bigcup_{i\in K} V_i : f(i)\in V_i \right\}
+    \end{equation*}
+    thought of as a subspace of the vector space of all functions $f:K\to\bigcup V_i$.
+\end{definition}
+\begin{definition}[Support]
+    Let $\mathcal{F}=\{V_i:i\in K\}$ be a family of vector spaces over a field $F$. The \textit{support} of a function $f:K\to\bigcup V_i$ is the set supp$(f)=\{i\in K: f(i)\neq 0\}$.
+\end{definition}
+\begin{definition}[External direct sum of family]
+    The \textit{external direct sum} of the family $\mathcal{F}=\{V_i:i\in K\}$ of vector spaces, is the vector space
+    \begin{equation*}
+        \bigoplus_{i\in K}^\text{ext}V_i=\left\{f:K\to \bigcup V_i: f(i)\in V_i, f\text{ has finite support} \right\},
+    \end{equation*}
+    thought of as a subspace of the vector space of functions from $K$ to $\bigcup V_i$.
+\end{definition}
+\end{document}

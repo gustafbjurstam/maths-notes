@@ -1,0 +1,279 @@
+\documentclass[12pt]{article}
+
+% Load AMS packages for advanced math
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{pgfplots}
+\usepackage{enumitem}
+\pgfplotsset{compat=newest}
+
+% Load geometry package and set margins
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{sats}{Sats}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem*{remark}{Remark}
+
+% Shortcuts
+\newcommand{\D}{\mathbb{D}}      % unit disc
+\renewcommand{\H}{\mathbb{H}}      % Half plane
+\newcommand{\N}{\mathbb{N}}      % natural numbers
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\real}{\mathbb{R}}   % real numbers
+\newcommand{\rat}{\mathbb{Q}}     % rationals
+\newcommand{\eps}{\varepsilon}    % for nice epsilon
+\newcommand{\sol}{ \noindent\textbf{Solution: } }   % creates Solution:
+\newcommand{\prob}[1]{ \noindent\textbf{Problem #1.} }
+\newcommand{\C}{\mathbb{C}}    % complex numbers
+\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
+\newcommand{\algebra}{\mathscr{A}}
+\renewcommand{\L}{\mathscr{L}}
+%\newtheorem*{solution}{Solution}
+\newenvironment{solution}{\renewcommand{\proofname}{Lösning}\begin{proof}}{\end{proof}}
+\newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
+\newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
+\usepackage{parskip}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Set linespacing to 1.5
+\baselineskip 1.5em
+
+\begin{center}
+\textbf{\large Examinable Definitions in SF2745 Advanced Complex Analysis} \\
+Gustaf Bjurstam\\
+bjurstam@kth.se\\
+\end{center}
+
+\begin{definition}
+    Identify $\C$ with the plane $\{(x,y,0):x,y\in\real\}\subset\real^3$. The \textbf{stereographic projection} of $z=x+iy$ is the unique point on the unit sphere intersecting the line defined by the two points $(x,y,0)$ and $(0,0,1)$. Let $\pi:\C\to\mathbb{S}^2$ be the function which maps $z\in\C$ to its stereographic projection $z^*\in\mathbb{S}^2$. We then have
+    \begin{equation*}
+        \pi(x+iy)=\left(\frac{2x}{x^2+y^2+1},\frac{2y}{x^2+y^2+1},\frac{x^2+y^2-1}{x^2+y^2+1}\right).
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    The formal power series $f(z)=\sum_{n\geq0} a_n(z-z_0)^n$ is called a \textbf{convergent power series centered at $z_0$} if there is an $r>0$ such that the series converges for all $z$ such that $|z-z_0|<r$. The largest possible such $r$ is called the \textbf{radius of convergence} of the series.
+\end{definition}
+\begin{definition}
+    A function $f$ is \textbf{analytic at $z_0$} if $f$ has a power series expansion valid in a neighbourhood of $z_0$.
+\end{definition}
+\begin{definition}
+    A \textbf{region} is a connected open set.
+\end{definition} 
+\begin{definition}
+    The \textbf{mean-value property} for analytic functions $f$ states that, if $f$ is analytic at $z_0$ and the radius of convergence is $r_0>0$, then $f(z_0)=\frac{1}{2\pi}\int_0^{2\pi}f(z_0+re^{it})\,dt$ for all $r<r_0$.
+\end{definition} 
+\begin{definition}
+    We say that $f$ is \textbf{locally conformal} if it preserves angles (including direction) between curves.
+\end{definition} 
+\begin{definition}
+    Let $\zeta\in\partial \D$, if $\sum_{n\geq0}a_z\zeta^n$ converges, and if $\Gamma$ is any Stoltz angle at $\zeta$, then we have \textbf{non-tangential convergence} if
+    \begin{equation*}
+        \lim_{z\in\Gamma\to\zeta} \sum_{n\geq 0} a_nz^n=\sum_{n\geq0}a_z\zeta^n.
+    \end{equation*}
+\end{definition} 
+\begin{definition}[Curve integral]
+    If $\gamma:[a,b]\to\C$ is a piecewise continuously differentialbe curve, and if $f$ is a complex valued function defined on (the image of) $\gamma$, then
+    \begin{equation}
+        \int_{\gamma}f(z)\,dz\equiv\int_{a}^bf(\gamma(t))\gamma'(t)\,dt.
+    \end{equation}
+\end{definition}
+\begin{definition}
+    If $\gamma:[a,b]\to\C$ is a piecewise continuously differentialbe curve, then the \textbf{length} of $\gamma$ is defined to be $\ell(\gamma)=|\gamma|\int_\gamma |dz|=\int_a^b|\gamma'(t)|\,dt$.
+\end{definition}
+
+\begin{definition}
+    A complex-valued function is said to be \textbf{holomorphic} on an open set $U$ if
+    \begin{equation*}
+        f'(z)=\lim_{w\to z} \frac{f(w)-f(z)}{w-z}
+    \end{equation*}
+    exists for all $z\in U$ and is continuous on $U$. A function $f$ is said to be holomorphic on a set $S$ if it is holomorphic on an open set $U\supset S$.
+\end{definition}
+\begin{definition}
+    If $\gamma$ is a cycle, then the \textbf{index} or \textbf{winding number} of $\gamma$ about $a$ is 
+    \begin{equation*}
+        n(\gamma,a)=\frac{1}{2\pi i}\int_\gamma \frac{d\zeta}{\zeta-a},
+    \end{equation*}
+    for $a\notin\gamma$.
+\end{definition}
+\begin{definition}
+    Closed curves $\gamma_1$ and $\gamma_2$ are \textbf{homologous} in a region $\Omega$ if $n(\gamma_1-\gamma_2,a)=0$ for all $a\notin \Omega$, an we then write $\gamma_1\sim \gamma_2$.
+\end{definition}
+\begin{definition}[Classification of singularities]
+    If $f$ has an isolated singularity at $b$, and $f(z)=\sum_{n\in\Z} a_n(z-b)^n$ sufficiently close to $b$, then we say that
+    \begin{enumerate}[label=(\alph*)]
+        \item $b$ is a \textbf{removeable singularity} if $a_n=0$ for $n<0$,
+        \item $b$ is a \textbf{zero of order $n_0>0$} if for $n<n_0$ we have $a_n=0$,
+        \item $b$ is a \textbf{pole of order $n_0>0$} if for $n<-n_0$ $a_n=0$, and
+        \item $b$ is an essential singularity if for any $n_0>0$ there is $n<-n_0$ such that $a_n\neq 0$.  
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    If $f$ is analytic in a region $\Omega$, except for at isolated poles in $\Omega$, we say that $f$ is meromorphic in $\Omega$.
+\end{definition}
+
+\begin{definition}
+    A \textbf{linear fractional transformation, LFT,} is a map of the form
+    \begin{equation*}
+        T(z)=\frac{az+b}{cz+d}.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    The \textbf{Cayley transform} is the map $C(z)=\frac{z-i}{z+i}$, and maps the upper half plane to the unit disc.
+\end{definition}
+
+\begin{definition}
+    The \textbf{principal branch} of the logarithm is the one which takes arguments in $(-\pi,\pi)$. We may also take $\log(-1)=\pi i$.
+\end{definition}
+\begin{definition}
+    The \textbf{Joukovski map} is the function $w(z)=\frac{1}{2}\left(z+\frac{1}{z}\right)$.
+\end{definition}
+
+\newpage
+\begin{definition}
+    A function $u:\Omega\to\real$ is called \textbf{harmonic} on the region $\Omega\subset\C$ if, for each $z\in\Omega$, there is $r_z>0$ such that, for all $r<r_z$
+    \begin{equation*}
+        u(z)=\frac{1}{2\pi}\int_0^{2\pi}u(z+re^{it})\,dt.
+    \end{equation*}
+    That is, $u$ satisfies the \textbf{mean value property}.
+\end{definition}
+
+\begin{definition}
+    A function $u:\Omega\to[-\infty,\infty)$ is called \textbf{subharmonic} on the region $\Omega\subset\C$ if, for each $z\in\Omega$, there is $r_z>0$ such that, for all $r<r_z$
+    \begin{equation*}
+        u(z)\leq\frac{1}{2\pi}\int_0^{2\pi}u(z+re^{it})\,dt.
+    \end{equation*}
+    That is, $u$ satisfies the \textbf{mean value inequality}.
+\end{definition}
+
+\begin{definition}
+    The \textbf{Poisson kernel} is given by
+    \begin{equation*}
+        P_z(t)=\frac{1}{2\pi}\frac{1-|z|^2}{|e^{it}-z|^2},
+    \end{equation*}
+    and $u=PI(g)\equiv \int P_z(t)g(e^{it})dt$ is the \textbf{Poisson integral of $g$}.
+\end{definition}
+
+\begin{definition}
+    The kernel given by $f_z(t)=\frac{e^{it}+z}{e^{it}-z}$ is called the \textbf{Herglotz kernel}, the \textbf{Herglotz integral} is the function $\frac{1}{2\pi}\int f_z(t)u(e^{it})dt$. When $u$ is harmonic on $\D$, then the Herglotz integral is the unique analytc function with real part $u$ and imaginary part $0$ at $z=0$.
+\end{definition}
+
+\begin{definition}
+    If $u$ is harmonic on a region $\Omega$, then a \textbf{harmonic conjugate of $u$} is any function $v$ such that $u+iv$ is analytic on $\Omega$.
+\end{definition}
+
+\begin{definition}
+    Let $I=(0,1)$. An open analytic arc $\gamma$ contained in the boundary of a region $\Omega$ is called a \textbf{one-sided arc} if there exists a function $g$ which is one-to-one and analytic in a neighbourhood $N$ of $I$, with $g(I)=\gamma$, and $g(N\cap \H)\subset\Omega$ and $g(N\setminus \overline{\H})\subset \C\setminus\Omega$. If $g(N\setminus I)\subset\Omega$ then $\gamma$ is called a \textbf{two-sided arc}.
+\end{definition}
+
+\begin{definition}
+    If $f$ is analytic in $\{z:0<|z-a|<\delta\}$ for some $\delta>0$, then the \textbf{residue of $f$ at $a$}, is the coefficient of $\frac{1}{z-a}$ in the Laurent series expansion of $f$ about $z=a$. 
+\end{definition}
+
+\begin{definition}
+    A familily $\mathcal{F}$ of function on a region $\Omega\subset\C$ is said to be \textbf{normal on $\Omega$} provided every sequence $\{f_n\}\subset\mathcal{F}$ contains a subsequence which converges uniformly on compact subsets of $\Omega$.
+\end{definition}
+\newpage
+\begin{definition}
+    A family of functions $\mathcal{F}$ defined on a set $E\subset\C$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{equicontinuous at $w\in E$} if for each $\eps>0$ there exists $\delta>0$ such that if $z\in E$ and $|z-w|<\delta$, then $|f(z)-f(w)|<\eps$ for all $f\in\mathcal{F}$;
+        \item \textbf{equicontinuous on $E$} if it is equicontinuous at each $w\in E$;
+        \item \textbf{uniformly equicontinuous on $E$} if for each $\eps>0$ there exists $\delta>0$ such that if $z,w\in E$ and $|z-w|<\delta$, then $|f(z)-f(w)|<\eps$ for all $f\in\mathcal{F}$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A family $\mathcal{F}$ of continuous functions is said to be \textbf{locally bounded} on $\Omega$ if for each $w\in\Omega$ there is a $\delta>0$ and $M<\infty$ so that if $|z-w|<\delta$ then $|f(z)|<M$ for all $f\in\mathcal{F}$.
+\end{definition}
+
+\begin{definition}
+    Suppose $f$ is meromorphic in a region $\Omega$, with a pole of order $M$ at $b\in\Omega$. Then \textbf{the singular part of $f$ at $b$} is $S_b(z)=\sum_{k=-M}^{-1}c_k(z-b)^k$, where $\sum_{k\in\Z} c_k(z-b)^k$ is the Laurent series for $f$ at $b$.
+\end{definition}
+
+\begin{definition}
+    Let $C(\partial\Omega)$ denote the set of continuous functions on the boundary in $\C^*$ of a region $\Omega$. The \textbf{Dirichlet problem} on ${\Omega}$ for a function $f\in C(\partial\Omega)$ is to find a harmonic function $u$ on $\Omega$ that is continuous on $\overline{\Omega}$ and equal to $f$ on $\partial \Omega$. 
+\end{definition}
+
+\begin{definition}
+    A family $\mathcal{F}$ of subharmonic functions on a region $\Omega$ is called a \textbf{Perron family} if it satisfies
+    \begin{enumerate}[label=(\roman*)]
+        \item if $v_1,v_2\in\mathcal{F}$ then $\max(v_1,v_2)\in\mathcal{F}$,
+        \item if $v\in\mathcal{F}$ and $D$ is a disc with $\overline{D}\subset\Omega$, and if $v>-\infty$ on $\partial D$, then $v_D\in\mathcal{F}$, and
+        \item for each $z\in\Omega$, there exists $v\in\mathcal{F}$ such that $v(z)>-\infty$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    For a subharmonic function $v$ and a disc $D$ centered at $c$ and of radius $r$, $v_D$ is defined by $v_D(z)=\frac{1}{2\pi}\int_0^{2\pi}\frac{1-|z-c|^2/r^2}{|e^{it}-(z-c)/r|^2}v(c+re^{it})\,dt$.
+\end{remark}
+
+\begin{definition}
+    If $\Omega\subset\C^*$ is a region, and if $f$ is a real-valued function on $\partial\Omega$ with $|f|\leq M<\infty$ on $\partial \Omega$, set
+    \begin{equation*}
+        \mathcal{F}_f=\{v \text{ subharmonic on } \Omega : \limsup_{z\in\Omega\to\zeta} v_(z)\leq f(\zeta),\text{ for all }\zeta\in\partial\Omega\}.
+    \end{equation*}
+    Then $u_f(z)\equiv\sup_{u\in\mathcal{F}_f} u(z)$ is harmonic in $\Omega$. The function $u_f$ is called the \textbf{Perron solution to the Dirichlet problem} on $\Omega$ for the function $f$.
+\end{definition}
+\newpage
+\begin{definition}
+    If $\Omega\subset \C^*$ is a region and if $\zeta_0\in\partial\Omega$ then $b$ is called a \textbf{local barrier at $\zeta_0$ for the region $\Omega$} provided
+    \begin{enumerate}[label=(\roman*)]
+        \item $b$ is defined and is subharmonic on $\Omega\cap D$ for some open disc $D$ containing $\zeta_0$,
+        \item $b(z)<0$ for $z\in\Omega\cap D$, and
+        \item $\lim_{z\in\Omega\to\zeta_0} b(z)=0$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    If there exist a local barrier at $\zeta_0\in\partial \Omega$ then $\zeta_0$ is called a \textbf{regular point of $\partial\Omega$}. Otherwise $\zeta_0$ is called an \textbf{irregular point of $\partial\Omega$}. If every $\zeta\in\partial\Omega$ is a regular point, then $\Omega$ is called a \textbf{regular region}.
+\end{definition}
+
+\begin{definition}
+    If $\gamma:[0,1]\to\C$ is a curve, and if $f_0$ is analytic in a neighbourhood of $\gamma(0)$, then an \textbf{analytic continuation of $f_0$ along $\gamma$} is a finite sequence $f_1,\dots, f_n$ of functions where $0=t_0<t_1<\dots<t_{n+1}=1$ is a partition of $[0,1]$ and $f_j$ is defined and analytic in a neighbourhood of $\gamma([t_j,t_{j+1}])$, $j=0,\dots,n$ such that $f_j=f_{j+1}$ in a neighbourhood of $\gamma(t_{j+1})$, $j=0,\dots,n-1$.
+\end{definition}
+
+\begin{definition}
+    A \textbf{Riemann surface} is a connected Hausdorff space $W$, together with a collection of open subsets $U_\alpha\subset W$ and functions $z_\alpha:U_\alpha\to \C$ such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $W=\bigcup U_\alpha$,
+        \item $z_\alpha$ is a homeomorphism of $U_\alpha$ onto $\D$, and
+        \item if $U_\alpha\cap U_\beta\neq\emptyset$ then $z_\beta\circ z_\alpha^{-1}$ is analytic on $z_\alpha(U_\alpha\cap U_\beta)$.
+    \end{enumerate}
+    The functions $z_\alpha$ are called \textbf{coordinate functions or maps} and the sets $U_\alpha$ are called \textbf{coordinate charts or discs}. Functions of the form $z_\beta\circ z_\alpha^{-1}$ are called \textbf{transition maps}.
+\end{definition}
+
+\begin{definition}
+    Let $W$ be a Riemann surface with charts $(U_\alpha,z_\alpha)$. Fix some $b\in W$. Let $[\,\gamma\,]$ be the equivalence class of curves homotopic to a curve $\gamma\subset W$. Let 
+    \begin{equation*}
+        W^*=\Big\{ [\,\gamma\,] : \gamma(0)=b \Big\}.
+    \end{equation*}
+    Define $\pi:W^*\to W$ by $[\, \gamma\, ]\mapsto \gamma(1)$. Let $U_\alpha$ be a chart at $c\in W$, $\gamma$ be curve in $W$ from $b$ to $c$, and let 
+    \begin{equation*}
+        U_\alpha^*=\Big\{ [\, \gamma\sigma_d\,] : d\in U_\alpha\Big\}
+    \end{equation*}
+    where $\sigma_d$ is a curve in $U_\alpha$ from $c$ to $d$. Define $z_\alpha^*:U_\alpha^*\to \D$ by $z_\alpha^*=z_\alpha\circ\pi$. Give $W^*$ a topology by declaring each $U_\alpha^*$ open. Then $W^*$ is a Riemann surface with charts $(U_\alpha^*,z_\alpha^*)$ called the \textbf{universal covering surface of $W$} and $\pi$ is called the \textbf{universal covering map}.
+\end{definition}
+\newpage
+\begin{definition}
+    If $\sigma$ is a closed curve in $W$ such that $\sigma(0)=\sigma(1)=b\in W$, then $M_{[\, \sigma\,]}:W^*\to W^*$ defined by $M_{[\, \sigma\,]}([\, \gamma \, ])=[\, \sigma\gamma\, ]$ is called a \textbf{deck transformation}. The deck transformations form a group under composition, this group is called \textbf{the fundamental group of $W$ at $b$}.
+\end{definition}
+
+\begin{definition}
+    If $W_1$ and $W_2$ are Riemann surfaces, then $f:W_1\to W_2$ is said to be \textbf{analytic} if $w_\beta\circ f\circ z_\alpha^{-1}$ is analyitc for each coordinate function $z_\alpha$ on $W_1$ and $w_\beta$ on $W_2$, wherever it is defined.
+\end{definition}
+
+\begin{definition}
+    Let $W$ be a Riemann surface and fix some $p_0\in W$. Let $z:U\to \D$ be a coordinate function such that $z(p_0)=0$. Let $\mathcal{F}_{p_0}$ be the collection of subharmonic functions $v$ on $W\setminus\{p_0\}$ satisfying $v=0$ on $W\setminus K$ for some compact proper subset of $W$, and $\limsup_{p\to p_0} (v(p)+\log|z(p)|)<\infty$. Then $F_{p_0}$ is a Perron family on $W\setminus\{p_0\}$. Set $g_w(p,p_0)=\sup\{v(p):v\in\mathcal{F}_{p_0}\}$, then by Harnack's theorem we have two cases
+    \begin{enumerate}[label=(\roman*)]
+        \item $g_W(p,p_0)$ is harmonic in $W\setminus\{p_0\}$, or
+        \item $g_W(p,p_0)=+\infty$ for all $p\in W\setminus\{p_0\}$.
+    \end{enumerate}
+    In the first case we say that $g_W$ is \textbf{Green's function on $W$ with pole at $p_0$}, and in the second case \textbf{Green's function with pole at $p_0$ does not exist on $W$}.
+\end{definition}
+\end{document}
