@@ -30,5 +30,5 @@ These notes are for personal use and may contain errors or omissions. They are n
 
 ## Contact
 
-Gustaf Bjurstam
+Gustaf Bjurstam  
 You are welcome to check out [my website](https://bjurstam.eu).
