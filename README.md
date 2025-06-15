@@ -17,8 +17,11 @@ I have ordered the books by "completeness" of the notes.
 
 - **Measure Theory** (Donald L.Cohn)
 - **Complex Analysis** (Donald Marshall)
-- **Functional Analysis, Sobolev Spaces, and PDE** (Haim Brezis)
-- **Advanced Linear Algebra** (Steven Roman)
+- **Functional Analysis, Sobolev Spaces, and PDE** (Haim Brezis) \*
+- **Advanced Linear Algebra** (Steven Roman) \*\*
+
+\* Under active development, I have just started.  
+\*\* Currently not in active development as I have focused on other things instead.
 
 ## Usage
 

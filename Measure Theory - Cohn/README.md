@@ -1,0 +1,2 @@
+# Measure Theory
+These notes contain the definitions as stated in Donald L. Cohn's *Measure Theory* (second edition) ISBN 978-1-4899-9762-3. During the summer of 2023, after my third year as an engineering student, I studied measure and integration theory on my own from this fantastic book. I would highly recommend it to anyone who has a background in analysis at the level of a textbook like Rudin's *Principles of Mathematical Analysis* as it is highly approachable and easy to get through without the assistance of a lecturer.
