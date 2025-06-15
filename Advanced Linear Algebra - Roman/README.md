@@ -1,0 +1,4 @@
+# Advanced Linear Algebra
+This book was recommended to me after I had studied group and ring theory from Dummit & Foote's *Abstract Algebra*, as I had never had a rigorous course in linear algebra and I wanted a treatment more abstract than what is usually given in a second course for undergraduates on the topic. Unfortunately I had a very hectic semester, so I did not find time to study much outside my actual university courses. This means that I only ever got through the first chapter. Hopefully, I run out of other exciting topics one day, and my motivation to continue with this book returns. Until then, only the definitions in the first chapter are supplied here.
+
+*Advanced Linear Algebra* (third edition) by Steven Roman, ISBN 978-0-387-72828-5
