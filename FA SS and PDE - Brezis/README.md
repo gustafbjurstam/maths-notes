@@ -1,0 +1,2 @@
+# Functional Analysis, Sobolev Spaces and Partial Differential Equations
+This summer (2025), I intend to study functional analysis, and, if time permits, some PDE-theory. For this purpose I am going through Haim Brezis' *Functional Analysis, Sobolev Spaces and Partial Differential Equations* (ISBN 978-0-387-70913-0), a rather wordy, but descriptive title. I hope to get through the first six chapters at least, though as I have many other responsibilities over the summer, these hopes might not be realised.
