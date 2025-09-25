@@ -19,6 +19,7 @@ I have ordered the books by "completeness" of the notes.
 - **Complex Analysis** (Donald Marshall)
 - **Functional Analysis, Sobolev Spaces, and PDE** (Haim Brezis) \*
 - **Advanced Linear Algebra** (Steven Roman) \*\*
+- **Inverse Problems** (Lecture notes for the course SF2529) \*
 
 \* Under active development, I have just started.  
 \*\* Currently not in active development as I have focused on other things instead.

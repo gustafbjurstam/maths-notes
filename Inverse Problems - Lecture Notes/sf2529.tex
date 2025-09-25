@@ -33,6 +33,8 @@
 \DeclareMathOperator{\range}{range}
 \DeclareMathOperator{\domain}{domain}
 \DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator{\TV}{TV}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 \newcommand\inner[2]{\left\langle#1, #2\right\rangle}
 
@@ -672,15 +674,15 @@ Assume $\mathscr{D}:X\to Z$ linear, and $S(x) = \frac{1}{2}\norm{\mathscr{D}(x)}
 \subsection{Total variation}
 The Tikhonov regularisers smooth edges, that is not always desirable. Let $X=W^{1,1}(\Omega) = \{x\in\mathcal{L}^1(\Omega): \nabla x\in\mathcal{L}^1(\Omega,\real^d)\}$ The TV (total variation) functional is a mapping
 \begin{equation*}
-    \text{TV}:X\to\real^+, \qquad \text{TV}(x) = \int_\Omega \abs{\nabla x}
+    \TV:X\to\real^+, \qquad \TV(x) = \int_\Omega \abs{\nabla x}
 \end{equation*} 
 In many applications $W^{1,1}$ is too restrictive, as we need jump discontinuities. So we have to extend TV to a broader class of functions.
 \begin{equation*}
-    \text{BV}(\Omega)= \{x\in \mathcal{L}^1:\norm{x}_{\mathcal{L}^1}+\text{TV} <\infty\}
+    \text{BV}(\Omega)= \{x\in \mathcal{L}^1:\norm{x}_{\mathcal{L}^1}+\TV <\infty\}
 \end{equation*}
 Where 
 \begin{equation*}
-    \text{TV}(x) = \sup_{\phi\in D(\Omega,\real^d)}\int_\Omega u(x) (\nabla\cdot \phi)(t)\,dt
+    \TV(x) = \sup_{\phi\in D(\Omega,\real^d)}\int_\Omega u(x) (\nabla\cdot \phi)(t)\,dt
 \end{equation*}
 and $D(\Omega,\real^d) = \{\phi\in C_c^\infty(\Omega, \real^d) : \sup_{t\in\Omega} \abs{\phi(t)}_{\real^d}<1\}$. Unfortunately then, BV is no longer a Hilbert space, but only Banach. 
 
@@ -884,7 +886,59 @@ Example theorem from the field:
 \end{theorem}
 Notice that the convergence rate is $1/n$, which is slow, and a problem in applications. Can we do better without making more assumptions about $E$? Yes, Nesterov acceleration (basis for Adam etc.). 
 
-Possible to improve the convergence rate for general $E$ by modifying the updates. 
+Possible to improve the convergence rate for general $E$ by modifying the updates. We will only formulate the model. 
+
+\subsubsection{Nesterov's accelerated gradient method}
+Initialise $x_0\in\real^d$, $\nu>0, \lambda_0=\beta_0=0$.
+
+Update $z_k = x_k + \beta_k(x_k-x_{k-1}), x_{k+1} = z_k - \nu \nabla E(z_k), \lambda_{k+1} = \frac{1}{2}(1+\sqrt{1+4\lambda_k^2}), \beta_{k+1} = \frac{\lambda_{k}-1}{\lambda_{k+1}}$. Gives convergence rate $1/n^2$, very good.
+
+\begin{theorem}
+    If $E\in C^1(\real)$, convex, coercive, and has $L$-Lipschitz gradient, also $\nu<1/L$. Then $x_n$ converges to a local minimiser of $E$ and $E(x_n)- E_* \leq \frac{2 L}{(n+1)^2}\min_{z\in\Omega_E}\norm{z-x_0}^2$, where $E_*=\inf E$, and $\Omega_E = \argmin E(x)$. 
+\end{theorem}
+
+Finding $L$ is difficult, often people use adaptive methods. 
+
+\subsubsection{Proximal methods}
+Suppose $E$ is not necessarily differentiable. Basis of Proximal methods is non-smooth calculus, which we don't have time for.
+
+The proximal operator (associated with $E$), is defined as 
+\begin{equation*}
+    \prox_E(x) = \argmin_{z\in\real^d} E(z) + \frac{1}{2}\norm{z-x}^2.
+\end{equation*}
+Why do we define it like this?
+\begin{theorem}
+    If $E$ is a closed, proper function. Then $z\mapsto E(z) + \frac{1}{2}\norm{z-x}^2$ is strongly convex, which means $\prox_E:\real^d\to\real^d$ is well-defined.
+\end{theorem}
+In the problem, we actually want to compute $\prox_{\nu E}$. 
+
+Let $\mathcal{U}\subset \real^d$ be closed and convex, and $E(x) = 0$ for $x\in \mathcal{U}$ and $\infty$ otherwise. Then $\prox_E(x) = \argmin_{z\in \mathcal{U}} \norm{x-z}$. 
+
+Suppose $E\in C^1$, then $\prox_{\nu E} \approx x- \nu \nabla E(x)$, for small $\nu$. If $x_*$ is a fixed point to $\prox_{\nu E}$ if and only if $x_*$ is a minimiser of $E$. 
+
+Suppose $E:\Omega\to\real$, $\Omega\subseteq \real^d$, then $\prox_E$ maps points in $\Omega$ to $\Omega$, moving closer to a minimum of $E$, and points outside $\Omega$ are mapped to $\partial \Omega$. 
+
+Suppose 
+\begin{itemize}
+    \item $E=G+H$
+    \begin{itemize}
+        \item $G\in C^1$, with $L$-Lipschitz gradient
+        \item $H$ is proper, coercive and l.s.c, but not necessarily differentiable.
+    \end{itemize}
+    \item Initialise $x_0\in\real^d$ and $\nu<1/L$.
+    \item Update $x_{k+1} = \prox_{\nu H}(x_k - \nu \nabla G(x_k))$
+\end{itemize}
+
+This is sometimes called forward-backward splitting.
+For many examples we know analytic expressions of $\prox$, but not for all, $\norm{x}$ has known $\prox$ but not $\TV$.
+
+\textbf{Douglas-Ratchford}
+\begin{itemize}
+    \item Let $E=G+H$
+    \item Update $z_{k+1} = \frac{1}{2}z_k + \frac{1}{2}(\prox_{\nu G}()$)
+\end{itemize}
+
+\textcolor{red}{google it lol}
 
 \end{document}
 
