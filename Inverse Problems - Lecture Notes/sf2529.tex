@@ -29,12 +29,22 @@
 \newcommand{\F}[1]{\Fo\left[#1\right]}
 \newcommand{\Fi}[1]{\Fo^{-1}\left[#1\right]}
 \newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
 \DeclareMathOperator{\cond}{cond}
 \DeclareMathOperator{\range}{range}
 \DeclareMathOperator{\domain}{domain}
 \DeclareMathOperator{\argmin}{argmin}
 \DeclareMathOperator{\prox}{prox}
 \DeclareMathOperator{\TV}{TV}
+\DeclareMathOperator{\TGV}{TGV^2_{\alpha,\beta}}
+\DeclareMathOperator{\BGV}{BGV^2_{\alpha,\beta}}
+\let\div\relax
+\DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\E}[1]{\mathbb{E} \left[#1\right]}
+% \DeclareMathOperator{\span}{span}
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 \newcommand\inner[2]{\left\langle#1, #2\right\rangle}
 
@@ -47,6 +57,8 @@
 \newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
 \newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
 \usepackage{parskip}
+\usepackage{bbm}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -939,6 +951,262 @@ For many examples we know analytic expressions of $\prox$, but not for all, $\no
 \end{itemize}
 
 \textcolor{red}{google it lol}
+
+
+\newpage
+\section{Lecture 11 (2025-09-29) (Guest lecturer: Evren Yarman)}
+\textbf{Today}
+\begin{itemize}
+    \item Sparsity promoting regularisation
+\end{itemize}
+
+Forward problem: $F(x)=y$, have input $x$, output $y$, operator $F$. Where could we have "sparsity"? Anywhere, the inputs, outputs or in some sense the operator.
+
+Let's consider the linear problem with $x\in\real^m,y\in\real^n$. Suppose we have a basis ${e_k}$ of $\real^n$. 
+
+Suppose $A= U\Sigma V^T$
+
+The solution to $\argmin_x \norm{Ax-b}^2$ is $(A^TA)^{-1}b$, the solution to $\argmin_B \norm{BAx-x}^2$ is $B=A^T(AA^T)^{-1}$, this is the \textit{Left inverse of $A$}, while the right inverse is $(A^TA)^{-1}$.
+
+\begin{definition}
+    A \textit{frame} is a set of vectors $D=\set{d_k}_{k=1}^{d\geq n}$ such that $  \text{span } D = V$ and $A\norm{v}^2\leq \sum \abs{\inner{v}{d_k}}^2 \leq B\norm{v}^2$ for all $v$ and for some real $A,B>0$, these are called the frame bounds.
+\end{definition}
+
+We can design the frames to be normal, i.e. $\norm{d_k}=1$. If $A=B$, we say we have simple frame bounds, and we have a tight frame.
+
+For a tight frame, we can write $v=\frac{1}{A}\sum_{k=1}^m \inner{v}{d_k}d_k$. 
+
+We can build dictionaries using PCA.
+
+
+\newpage
+\section{Lecture 12 (2025-10-02)}
+\textbf{Today}
+\begin{itemize}
+    \item Smoothed TV
+    \item Second order TGV
+    \item Besov space norm
+    \item Non-local TV
+\end{itemize}
+
+Today we are cherry-picking some examples of other functionals used in variational models.
+
+\subsection{Smoothed TV}
+Replace TV by $$\TV^\varepsilon(x) = \int_{\Omega} \sqrt{\abs{\nabla x(t)}^2 + \varepsilon^2}\,dt.$$
+
+Similar to Huber functional from the project. Clearly we are introducing another parameter. Whether $\varepsilon$ is a regularisation parameter is a bit unclear, it can also be thought of as some other hyperparameter to be chosen a priori.
+
+In a hospital setting, the optimisation problem is never actually solved, only two iterations in the solver are usually taken.
+
+Total variation is bad at preserving texture, we call this staircasing.
+
+\subsection{Second order Total Generalised Variation}
+An attempt at recovering edges sharply, but without staircasing the texture. This is actually a whole family of regularisers, but we will only be doing second order.
+
+\begin{itemize}
+    \item Usage of $\TV$ leads to solutions that have staircasing artefacts, $\ker\TV = \set{\text{constant functions}}$.
+    \item Design a regulariser $S:X\to\real$ that reduces staircasing while preserving edges. 
+\end{itemize}
+\begin{definition}
+    We have signals $x\in\mathcal{L}^1(\Omega), \Omega\subset \real^d$, and constants $\alpha,\beta>0$. We define
+    \begin{equation*}
+        \TGV(x) = \sup \set{\int_\omega x(t)(\div^2\phi)(t)\,dt: \phi\in C_c^2(\Omega,S^{d\times d}), \norm{\phi}_\infty \leq \beta, \norm{\div \phi}_\infty \leq \alpha}.
+    \end{equation*}
+    Where $C_c^2(\Omega,S^{d\times d})$ is the set of symmetric $d\times d$ matrices and each $\phi_{i,j}$ is differentiable with compact support. Further, $(\div \phi)_i = \sum_{j=1}^d\frac{\partial \phi_{i,j}}{\partial t_j}$, and $\div^2 \phi = \sum_{i=1}^d\frac{\partial \phi_{i,i}}{\partial t_i} + 2\sum_{i<j} \frac{\partial^2\phi_{i,j}}{\partial t_i\partial t_j}$. On the spaces $C^1_c(\Omega,S^{d\times d})$ and
+     $C_c(\Omega,\real^d)$ are given as $$\norm{q}_\infty = \sup_{t\in\Omega}\set{\left(\sum_{i=1}^d \abs{q_{i,i}(t)}^2 + 2\sum_{i<j}\abs{q_{i,j}(t)}^2\right)^{1/2}}$$ 
+     and $$\norm{p}_\infty = \sup_{t\in\Omega} \set{\left(\sum_{i=1}^d \abs{p_i(t)}^2\right)^{1/2}}.$$
+\end{definition}
+
+\subsubsection{Properties of $\TGV$}
+\begin{itemize}
+    \item $\TGV$ maps $L^p$ functions to the real numbers
+    \begin{itemize}
+        \item Is proper
+        \item Convex, and
+        \item lower semicontinuous for $1\leq p\leq \infty$.
+    \end{itemize}
+    \item Rotation and translation invariant.
+    \item $\TGV$ can serve as a norm on $\BGV^2_{\alpha,\beta}(\Omega) = \set{x\in L^1(\Omega): \TGV(x)<\infty}$, this is a Banach space with norm $\norm{x} = \norm{x}_1+\TGV(x)$.
+\end{itemize}
+
+The kernel is $\ker \TGV = \set{x:\BGV : x=a\cdot t+b, a\in \real^d, b\in\real}$, i.e. first order polynomials. Obviously the formulation from the definition is not very convenient for computation purposes, as such we have a reformulation which is derived from convex analysis using Fenchel duality.
+\begin{equation*}
+    \TGV(x) = \min_{u\in\text{BD}(\Omega)} \alpha\norm{x-u}_\mathcal{M} + \beta \norm{\mathcal{E}(u)}_\mathcal{M},
+\end{equation*} 
+where BD are functions of bounded deformation, $\mathcal{E}(u)=\frac{1}{2}(\nabla u + \nabla u^T)$ and $\norm{\cdot}_\mathcal{M}$ is a suitable matrix norm. With double optimisation problem (in the variational model), we can solve for $x$ and $u$ together.
+
+\subsection{Besov space norm}
+Another attempt at solving the issues with TV. Might skip.
+
+
+\subsection{Non-local TV}
+Gradient computation is very local, sometimes we want to compare things far away from each other spatially. 
+\begin{itemize}
+    \item Compare similarity in images or signals, from regions that are not necessarily close. 
+    \item Let $x:\Omega\to\real$, and $\Omega\subset \real^d$. 
+    \item Define $\nabla_{NL}x(s,t) = \sqrt{w(s,t)}(x(t)-s(t))$ for $s,t\in\Omega$.
+    \item The weighting function $w:\Omega\times\Omega\to\real^+$ quantifies similarity between regions near $s$ and $t$. 
+    \begin{itemize}
+        \item Popular choice is $w(s,t) = \alpha_1\exp\left(\frac{-(s-t)^2}{\sigma_1^2}\right)+ \alpha_2 \exp\left(\frac{-(f(s)-f(t))^2}{\sigma_2^2}\right)$, where $\alpha,\sigma>0$ and $f:\real^d\to \real^d$ is called a feature extractor.
+    \end{itemize}
+\end{itemize}
+\begin{definition}
+    We define $\abs{\nabla_{NL}x}(t) = \sqrt{\int_\Omega \nabla_{NL}x(s,t)^2\, ds}$ and 
+    \begin{equation*}
+        \TV_{NL}(x) = \int_\Omega \abs{\nabla_{NL}x}(t)\, dt.
+    \end{equation*}
+\end{definition}
+
+
+\newpage
+\section{Lecture 13 (2025-10-06)}
+I was not able to attend this lecture, these notes are based on what was written by another student.
+
+\textbf{Today}
+\begin{itemize}
+    \item Bayesian view of inverse problems
+\end{itemize}
+
+We take here inverse problems of two flavours.
+\begin{enumerate}[label=(\roman*)]
+    \item Recover $x\in X$ from $Ax + \varepsilon = y$ where $y\in Y$, $\mathbbm{\varepsilon}$ is a $Y$-valued random variable, and $A\in\mathcal{L}(X,Y)$.
+    \item Consider both $\mathbbm{x}$ and $\mathbb{\varepsilon}$ to be samples from $X$-valued and $Y$-valued random variables.
+\end{enumerate}
+
+Our approach to solving the first kind of problem is the same as usual. Apply a regularisation and construct the random variable $\hat{\mathbbm{x}}_\alpha = R_\alpha(\mathbbm{y})$, so that $\hat{x}_\alpha = R_\alpha(y)$. 
+
+\subsection{Least squares solutions}
+
+\begin{theorem}
+    Assume $x\in\real^d, y\in\real^n, n> d$ and $\rank A = d$. Furthermore, assume $\mathbb{E}[\varepsilon]=0$ and $\var[\varepsilon] = \Sigma \in \real^{n\times n}$. If we set $\hat{\mathbbm{x}} = (A^*A)^{-1} A \mathbbm{y}$, then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mathbb{E}[\hat{\mathbbm{x}}]=x$, and
+        \item $\var[\hat{\mathbbm{x}}]= (A^*A)^{-1}A^*\Sigma A(A^*A)^{-1}$.
+    \end{enumerate}
+    Furthermore, if we assume $\Sigma = \sigma^2 I$, i.e. we have uncorrelated errors with the same variance, then $\var[\hat{\mathbbm{x}}]= \sigma^2 (A^*A)^{-1}$. Set $\hat{\mathbbm{y}} = A \hat{\mathbbm{x}}$, then 
+    \begin{enumerate}[label=(\alph*)]
+        \setcounter{enumi}{2}
+        \item $\E{\hat{\mathbbm{y}}} = Ax$,
+        \item $\var \hat{\mathbbm{y}} = \sigma^2 A(A^*A)^{-1}A^*$,
+        \item If $\mathbbm{r} = \mathbbm{y} - \hat{\mathbbm{y}}$, then $\E{\mathbbm{r}} = 0$,
+        \item $\var[\mathbbm{r}] = \sigma^2(I - A(A^*A)^{-1}A^*)$, and
+        \item $\E{\norm{ \abs{\mathbbm{r}}}^2} = (n-d) \sigma^2$, such that $\hat{\mathbb{\sigma}}^2 = \frac{\norm{ \abs{\mathbbm{r}}}^2}{n-d}$ becomes an unbiased estimator of $\sigma^2$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    For (a), simple calculation gives
+    \begin{equation*}
+        \begin{aligned}
+            \E{\hat{\mathbbm{x}}} =& \E{(A^*A)^{-1}A^* \mathbbm{y}}\\
+            =& \E{(A^*A)^{-1}A^* \big( Ax + \varepsilon\big)}\\
+            =& x + (A^*A)^{-1}A^*  \E{\varepsilon}.
+        \end{aligned}
+    \end{equation*}
+    Since the expectation of $\varepsilon$ is zero, this completes the proof of (a).
+
+    For (b), we see that 
+    \begin{equation*}
+        \begin{aligned}
+            \var \hat{\mathbbm{x}} &= \cov (\hat{\mathbbm{x}},\hat{\mathbbm{x}})\\
+            &= \cov((A^*A)^{-1}A^* \mathbbm{y}, (A^*A)^{-1}A^* \mathbbm{y})\\
+            &= (A^*A)^{-1}A^*\cov( \mathbbm{y}, \mathbbm{y})A(A^*A)^{-1}\\
+            &= (A^*A)^{-1}A^*\cov( \varepsilon, \varepsilon)A(A^*A)^{-1}\\
+            &= (A^*A)^{-1}A^*\Sigma A(A^*A)^{-1}
+        \end{aligned}
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}
+    Assume that $\varepsilon \sim \mathcal{N}(0,\sigma^2 I)$, then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\hat{\mathbbm{x}} \sim \mathcal{N}(x,\sigma^2 (A^*A)^{-1})$, 
+        \item $\hat{\mathbbm{x}}$ and ${\mathbbm{r}}$ are independent
+        \item $\hat{\mathbbm{y}} \sim \mathcal{N}(Ax,\sigma^2 A(A^*A)^{-1}A^*)$, 
+        \item ${\mathbbm{r}} \sim \mathcal{N}(Ax,\sigma^2 (I-A(A^*A)^{-1}A^*))$, and
+        \item $\frac{(n-d)\hat{\sigma}^2}{\sigma^2} \sim \chi_{n-d}$.
+    \end{enumerate}
+\end{theorem}
+
+If we have $\Sigma$ symmetric positive definite, then if 
+\begin{equation*}
+    \hat{x}_\Sigma = \argmin_x (y-Ax)^*\Sigma(y-Ax),
+\end{equation*}
+then we have $\hat{x}_\Sigma = (A^*\Sigma^{-1}A)^{-1}A^*\Sigma^{-1} y$, and $\E{\hat{x}_\Sigma} = x$, and $\var \hat{x}_\Sigma = (A^*\Sigma^{-1}A)^{-1}$. This is called \textit{weighted least squares}. 
+
+\subsection{Confidence intervals}
+Suppose $\varepsilon\sim \mathcal{N}(0,\sigma^2 I)$ and $\sigma^2$ is known, then a $100(1-\alpha)\%$ confidence ellipse for $\hat{\mathbbm{x}}$ is given by
+\begin{equation*}
+    \set{x\in\real^d: (\hat{\mathbbm{x}} - x)A^*A(\hat{\mathbbm{x}}) \leq \sigma^2\chi_\alpha(\alpha)}
+\end{equation*}
+\textcolor{red}{Does $\chi_\alpha$ actually make sense? Feels like a typo.} 
+Similarly, $100(1-\alpha)\%$ interval for $\hat{\mathbbm{x}}_k$ is given by $\left[\hat{\mathbbm{x}}_k - J_{\alpha/2}\sqrt{\left((A^*A)^{-1}\right)_k},\, \hat{\mathbbm{x}}_{k,k} + J_{\alpha/2}\sqrt{\left((A^*A)^{-1}\right)_{k,k}}\right]$, where $J_{\alpha}$ is the $\alpha$-quartile of $N(0,\sigma^2)$.
+
+\subsection{Moore-Penrose pseudoinverse}
+If $y = Ax + \varepsilon$, and $\ker A$ is non-trivial, then with $\hat{\mathbbm{x}} = A^\dagger {\mathbbm{y}}$, we have 
+\begin{itemize}
+    \item $\E{\hat{\mathbbm{x}}} = A^\dagger A x$
+    \item $\var {\hat{\mathbbm{x}}} = \sigma^2 (A^*A)^\dagger$.
+\end{itemize}
+
+\subsection{Tikhonov regularisation}
+Suppose $X= \real^d, Y= \real^n$, and $y= Ax+\varepsilon$. If we set $\hat{x}_\lambda = \argmin_x \frac{1}{2}\norm{Ax-y}^2 + + \lambda x^TSx$ for some symmetric positive semi-definite matrix $S$, then $\hat{x}_\lambda = (A^*A + \lambda S)^{-1}y$, we define $R_\lambda = (A^*A + \lambda S)^{-1}$. If $y$ is a sample from $\mathbbm{y} = Ax + \varepsilon$, then $\hat{\mathbbm{x}}_\lambda = R_\lambda \mathbbm{y}$. 
+
+If $\E{\varepsilon} = 0$ and $\var [\varepsilon] = \Sigma$, then $\E{\hat{\mathbbm{x}}_\lambda} = R_\lambda Ax$, and $\var\hat{\mathbbm{x}}_\lambda = R_\lambda \Sigma R_\lambda^T$.
+
+\subsection{Bayesian inverse problems}
+In Bayesian inverse problems we want to recover the posterior distribution of $(\mathbbm{x}|\mathbbm{y}=y)$, where $y$ is a single sample of $(\mathbbm{y}|\mathbbm{x}=x^*)$ and $\mathbbm{y}=Ax + \varepsilon$. Here
+\begin{itemize}
+    \item $x^*$ is the unknown, true, solution,
+    \item $\varepsilon$ is $Y$-valued random variable, and
+    \item $\mathbbm{x}$ is $X$-valued random variable with prior $\pi$.
+\end{itemize}
+
+Even if the problem $y= Ax+\varepsilon$ is ill-posed, lifting the problem to a Bayesian statistical setting, will for many priors, make the problem well-posed.
+
+\newpage
+
+\section{Lecture 14 (2025-10-09)}
+\textbf{Today}
+\begin{itemize}
+    \item (Finish from last time) Bayesian inverse problems
+    \item Deep learning based methods
+\end{itemize}
+
+We have worked with four types of solutions
+\begin{itemize}
+    \item Analytic pseudoinverse
+    \begin{itemize}
+        \item Not iterative
+        \item Tied to specific forward problems
+        \item Based on having a closed form expression for $A^{-1}$
+        \item Have something that approximates $R_\alpha \approx A^{-1}$
+        \item Very fast, but weak in regularisation power 
+    \end{itemize}
+    \item Iterative methods with early stopping (for solving $\argmin \norm{Ax-y}^2)$.
+    \begin{itemize}
+        \item Early stopping is similar to throwing out high frequency components
+        \item Not tied to specific problems, can even be used for non-linear problems
+    \end{itemize}
+    \item Variational methods
+    \begin{itemize}
+        \item Slow, actually want to solve the minimisation problem
+        \item The general framework can be tailored to the specific problem you are working with
+        \item Makes regularisation parameter choice rule computationally important
+    \end{itemize}
+    \item Statistical methods
+    \begin{itemize}
+        \item Richer framework
+        \item Able to derive confidence intervals etc.
+        \item Horrendously difficult to compute, and define a good prior
+    \end{itemize}
+\end{itemize}
+This was the entire landscape until recently. People wanted to combine the last two types, without paying the horrible price. Our usual priors do not give with random samples things that we would actually expect, for example in imaging of humans, a random sample of the prior will not look anything like a human. We instead want to learn the prior from data.
+
+One idea, which was very successful, was to use a Neural denoiser $f$ such that our reconstruction is given by $f\circ A^\dagger$. Intellectually not very satisfying however, today we will speak about what has happened since then.
+
+
+
 
 \end{document}
 
