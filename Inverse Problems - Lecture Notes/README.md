@@ -1,4 +1,4 @@
-# Complex Analysis
+# Inverse Problems
 This is a rare entry of the repository, as these notes were actually developed to help me with a specific course.
 
 In the autumn of 2025, I took the course [SF2529 Inverse Problems](https://www.kth.se/student/kurser/kurs/SF2529?l=en) at KTH. These are the notes I took from the lectures.
