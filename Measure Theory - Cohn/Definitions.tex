@@ -1,51 +1,14 @@
 \documentclass[12pt]{article}
 
-% Load AMS packages for advanced math
-\usepackage{amsmath,amssymb,amsthm,mathrsfs}
-\usepackage{pgfplots}
-\usepackage{enumitem}
-\pgfplotsset{compat=newest}
+\usepackage{../mathsnotes}
 
-% Load geometry package and set margins
-\usepackage[margin=1in]{geometry}
-
-\newtheorem{lemma}{Lemma}
-\newtheorem{sats}{Sats}
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem*{remark}{Remark}
-
-% Shortcuts
-\newcommand{\N}{\mathbb{N}}      % natural numbers
-\newcommand{\real}{\mathbb{R}}   % real numbers
-\newcommand{\rat}{\mathbb{Q}}     % rationals
-\newcommand{\eps}{\varepsilon}    % for nice epsilon
-\newcommand{\sol}{ \noindent\textbf{Solution: } }   % creates Solution:
-\newcommand{\prob}[1]{ \noindent\textbf{Problem #1.} }
-\newcommand{\C}{\mathbb{C}}    % complex numbers
-\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
-\newcommand{\algebra}{\mathscr{A}}
-\renewcommand{\L}{\mathscr{L}}
-%\newtheorem*{solution}{Solution}
-\newenvironment{solution}{\renewcommand{\proofname}{Lösning}\begin{proof}}{\end{proof}}
-\newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
-\newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
-\usepackage{parskip}
-
-\newcommand\norm[1]{\left\lVert#1\right\rVert}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
-% Set linespacing to 1.5
-\baselineskip 1.5em
-
 \begin{center}
 \textbf{\large Definitions used in Cohn's \textit{Measure Theory} (second edition)} \\
 Gustaf Bjurstam\\
 bjurstam@kth.se\\
 \end{center}
+
 \section{Measures}
 \begin{definition}[Algebra]
     Let $X$ be a set, an arbitrary collection of subsets $\algebra$ of X is an \textit{algebra} on $X$ if
@@ -215,8 +178,8 @@ bjurstam@kth.se\\
     \end{equation*}
     where the latter two are used to emphasise that we are talking about the Lebesgue integral.
 \end{definition}
-\begin{definition}[$\L^1$]
-    We define $\L^1(X,\algebra,\mu,\real)$, or sometimes simply $\L^1$, as the set of all integrable functions $f:X\to \real$. (As opposed to $[-\infty,\infty]$-valued functions.)
+\begin{definition}[$\Lscr^1$]
+    We define $\Lscr^1(X,\algebra,\mu,\real)$, or sometimes simply $\Lscr^1$, as the set of all integrable functions $f:X\to \real$. (As opposed to $[-\infty,\infty]$-valued functions.)
 \end{definition}
 \subsection{Measurable functions again}
 \begin{definition}[Measurable function between sets]
@@ -298,41 +261,41 @@ bjurstam@kth.se\\
 \begin{definition}[Hilbert space]
     An inner product space that is complete under the norm associated with the inner product is called a \textit{Hilbert space}.
 \end{definition}
-\subsection{$\L^p$ and $L^p$}
+\subsection{$\Lscr^p$ and $L^p$}
 \begin{definition}[$\mathscr{L}^p$]
     Let $(X,\algebra,\mu)$ be a measure space, and let $p\in [1,\infty)$. Then $\mathscr{L}^p(X,\algebra,\mu,\real)$ is the set of all $\algebra$-measurable functions $f:X\to \real$ such that $|f|^p$ is integrable, and $\mathscr{L}^p(X,\algebra,\mu,\C)$ is the set of $\algebra$-measurable functions $f:X\to\C$ such that $|f|^p$ is integrable.
 \end{definition}
-\begin{definition}[$\L^\infty$]
-    Let $(X,\algebra,\mu)$ be a measure space. We define $\L^\infty(X,\algebra,\mu,\real)$ to be the set of all\footnote{I think it's supposed to be almost everywhere bounded functions, otherwise exercise 3.3.7 fails with this definition (however not with the alternative definition).} bounded real-valued $\algebra$-measurable functions, and $\L^p(X,\algebra,\mu,\C)$ as the set of all bounded complex-valued $\algebra$-measurable functions.
+\begin{definition}[$\Lscr^\infty$]
+    Let $(X,\algebra,\mu)$ be a measure space. We define $\Lscr^\infty(X,\algebra,\mu,\real)$ to be the set of all\footnote{I think it's supposed to be almost everywhere bounded functions, otherwise exercise 3.3.7 fails with this definition (however not with the alternative definition).} bounded real-valued $\algebra$-measurable functions, and $\Lscr^p(X,\algebra,\mu,\C)$ as the set of all bounded complex-valued $\algebra$-measurable functions.
 \end{definition}
 \begin{remark}
-    Some authors\footnote{Notably, the first edition of Cohn's \textit{Measure Theory} uses this definition.} define $\L^\infty(X,\algebra,\mu)$ as the set of all \textit{essentially bounded} $\algebra$-measurable functions on $X$. A function $f:X\to \C$ is \textit{essentially bounded} if there exists $M>0$ such that $\{x\in X: |f(x)|>M\}$ is locally $\mu$-null. For most purposes, it does not matter which definition of $\L^\infty$ one uses. However the study of liftings is convenient with \textbf{Definition 3.14}.
+    Some authors\footnote{Notably, the first edition of Cohn's \textit{Measure Theory} uses this definition.} define $\Lscr^\infty(X,\algebra,\mu)$ as the set of all \textit{essentially bounded} $\algebra$-measurable functions on $X$. A function $f:X\to \C$ is \textit{essentially bounded} if there exists $M>0$ such that $\{x\in X: |f(x)|>M\}$ is locally $\mu$-null. For most purposes, it does not matter which definition of $\Lscr^\infty$ one uses. However the study of liftings is convenient with \textbf{Definition 3.14}.
 \end{remark}
 \begin{definition}[Locally $\mu$-null]
     Let $(X,\algebra,\mu)$ be a measure space. A subset $N\subseteq X$ is said to be \textit{locally $\mu$-null} if for each $A\in\algebra$ that satisfies $\mu(A)<\infty$ the set $A\cap N$ is $\mu$-null. A property is said to hold \textit{locally almost everywhere} if the set on which the property doesn't hold is locally $\mu$-null.
 \end{definition}
-\begin{definition}[Seminorm on $\L^p$]
-    In the case of $p\in [1,\infty)$ we define a seminorm $\norm{\cdot}_p:\L^p(X,\algebra,\mu)\to\real$ by
+\begin{definition}[Seminorm on $\Lscr^p$]
+    In the case of $p\in [1,\infty)$ we define a seminorm $\norm{\cdot}_p:\Lscr^p(X,\algebra,\mu)\to\real$ by
     \begin{equation*}
         \norm{f}_p=\left(\int |f|^p \, d\mu \right)^{1/p}.
     \end{equation*}
-    In the case $p=\infty$ we define a seminorm $\norm{\cdot}_\infty:\L^\infty(X,\algebra,\mu)\to \real$ by
+    In the case $p=\infty$ we define a seminorm $\norm{\cdot}_\infty:\Lscr^\infty(X,\algebra,\mu)\to \real$ by
     \begin{equation*}
         \norm{f}_\infty = \inf \big\{ M: \{x\in X: |f(x)|>M\} \text{ is locally $\mu$-null}\big\}.
     \end{equation*}
 \end{definition}
 \begin{definition}[$\mathscr{N}^p$]
-    Let $(X,\algebra,\mu)$ be a measure space, and let $\mathscr{N}^p(X,\algebra,\mu)$ be the subset of $\L^p(X,\algebra,\mu)$ which consists of the functions $f\in \L^p(X,\algebra,\mu)$ such that $\norm{f}_p=0$. That is, if $p\in[1,\infty)$, then $\mathscr{N}^p(X,\algebra,\mu)$ is the set of functions in $\L^p(X,\algebra,\mu)$ which vanish almost everywhere, and if $p=\infty$ then $\mathscr{N}^\infty(X,\algebra,\mu)$ is the set of functions in $\L^\infty(X,\algebra,\mu)$ which vanish locally almost everywhere.
+    Let $(X,\algebra,\mu)$ be a measure space, and let $\mathscr{N}^p(X,\algebra,\mu)$ be the subset of $\Lscr^p(X,\algebra,\mu)$ which consists of the functions $f\in \Lscr^p(X,\algebra,\mu)$ such that $\norm{f}_p=0$. That is, if $p\in[1,\infty)$, then $\mathscr{N}^p(X,\algebra,\mu)$ is the set of functions in $\Lscr^p(X,\algebra,\mu)$ which vanish almost everywhere, and if $p=\infty$ then $\mathscr{N}^\infty(X,\algebra,\mu)$ is the set of functions in $\Lscr^\infty(X,\algebra,\mu)$ which vanish locally almost everywhere.
 \end{definition}
 \newpage
 \begin{definition}[$L^p$]
-    Let $(X,\algebra,\mu)$ be a measure space. We define $L^p(X,\algebra,\mu)$ to be the quotient group $\L^p(X,\algebra,\mu)/\mathscr{N}^p(X,\algebra,\mu)$. That is $L^p(X,\algebra,\mu)$ is the collection of cosets of $\mathscr{N}^p(X,\algebra,\mu)$ in $\L^p(X,\algebra,\mu)$; these cosets are by definition the equivalence classes induced by the equivalence relation $\sim$, where $f\sim g$ holds if and only if $f-g\in\mathscr{N}^p(X,\algebra,\mu)$. Then if $p\in[1,\infty)$, $f\sim g\Longleftrightarrow f=g$ almost everywhere.
+    Let $(X,\algebra,\mu)$ be a measure space. We define $L^p(X,\algebra,\mu)$ to be the quotient group $\Lscr^p(X,\algebra,\mu)/\mathscr{N}^p(X,\algebra,\mu)$. That is $L^p(X,\algebra,\mu)$ is the collection of cosets of $\mathscr{N}^p(X,\algebra,\mu)$ in $\Lscr^p(X,\algebra,\mu)$; these cosets are by definition the equivalence classes induced by the equivalence relation $\sim$, where $f\sim g$ holds if and only if $f-g\in\mathscr{N}^p(X,\algebra,\mu)$. Then if $p\in[1,\infty)$, $f\sim g\Longleftrightarrow f=g$ almost everywhere.
 \end{definition}
 \begin{definition}[Norm on $L^p$]
-     Let $(X,\algebra,\mu)$ be a measure space. For each $f\in\L^p(X,\algebra,\mu)$ let $\langle f\rangle$ be the coset of $\mathscr{N}^p(X,\algebra,\mu)$ in $\L^p(X,\algebra,\mu)$ to which $f$ belongs. Then $L^p(X,\algebra,\mu)$ is a vector space and we can define a norm $\norm{\cdot}_p:L^p(X,\algebra,\mu)\to \real$ by $\norm{\langle f\rangle}_p=\norm{f}_p$, where on the right hand side $\norm{\cdot}_p:\L^p(X,\algebra,\mu)\to \real$ is given in \textbf{Definition 3.16}.
+     Let $(X,\algebra,\mu)$ be a measure space. For each $f\in\Lscr^p(X,\algebra,\mu)$ let $\langle f\rangle$ be the coset of $\mathscr{N}^p(X,\algebra,\mu)$ in $\Lscr^p(X,\algebra,\mu)$ to which $f$ belongs. Then $L^p(X,\algebra,\mu)$ is a vector space and we can define a norm $\norm{\cdot}_p:L^p(X,\algebra,\mu)\to \real$ by $\norm{\langle f\rangle}_p=\norm{f}_p$, where on the right hand side $\norm{\cdot}_p:\Lscr^p(X,\algebra,\mu)\to \real$ is given in \textbf{Definition 3.16}.
 \end{definition}
 \begin{definition}[Convergence in $p$th mean]
-    Let $(X,\algebra,\mu)$ be a measure space, let $p\in [1,\infty)$, and let $f,f_1,f_2,\cdots \in \L^p(X,\algebra,\mu)$. Then $\{f_n\}$ converges to $f$ in $p$\textit{th mean}, or in $L^p$ \textit{norm}, if $\lim_n \norm{f_n-f}_p=0$.
+    Let $(X,\algebra,\mu)$ be a measure space, let $p\in [1,\infty)$, and let $f,f_1,f_2,\cdots \in \Lscr^p(X,\algebra,\mu)$. Then $\{f_n\}$ converges to $f$ in $p$\textit{th mean}, or in $L^p$ \textit{norm}, if $\lim_n \norm{f_n-f}_p=0$.
 \end{definition}
 \subsection{Dual Spaces}
 \begin{definition}[Linear operator]

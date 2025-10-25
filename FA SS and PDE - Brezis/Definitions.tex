@@ -1,46 +1,8 @@
 \documentclass[12pt]{article}
+\usepackage{../mathsnotes}
 
-% Load AMS packages for advanced math
-\usepackage{amsmath,amssymb,amsthm,mathrsfs}
-\usepackage{pgfplots}
-\usepackage{enumitem}
-\pgfplotsset{compat=newest}
 
-% Load geometry package and set margins
-\usepackage[margin=1in]{geometry}
-
-\newtheorem{lemma}{Lemma}
-\newtheorem{sats}{Sats}
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem*{remark}{Remark}
-
-% Shortcuts
-\newcommand{\N}{\mathbb{N}}      % natural numbers
-\newcommand{\real}{\mathbb{R}}   % real numbers
-\newcommand{\rat}{\mathbb{Q}}     % rationals
-\newcommand{\eps}{\varepsilon}    % for nice epsilon
-\newcommand{\sol}{ \noindent\textbf{Solution: } }   % creates Solution:
-\newcommand{\prob}[1]{ \noindent\textbf{Problem #1.} }
-\newcommand{\C}{\mathbb{C}}    % complex numbers
-\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
-\newcommand{\algebra}{\mathscr{A}}
-\renewcommand{\L}{\mathscr{L}}
-%\newtheorem*{solution}{Solution}
-\newenvironment{solution}{\renewcommand{\proofname}{Lösning}\begin{proof}}{\end{proof}}
-\newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
-\newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
-\usepackage{parskip}
-
-\newcommand\norm[1]{\left\lVert#1\right\rVert}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
-% Set linespacing to 1.5
-\baselineskip 1.5em
-
 \begin{center}
 \textbf{\large Definitions used in Brezis' \textit{Functional Analysis, Sobolev Spaces and Partial Differential Equations} (first edition)} \\
 Gustaf Bjurstam\\
@@ -59,8 +21,15 @@ bjurstam@kth.se\\
         p(x+y) &\leq p(x)+p(y), &\forall x,y\in E.
     \end{align}
 \end{definition}
+
 \begin{definition}
     Let $P$ be a set with a (partial) order relation $\leq$. A subset $Q\subseteq P$ is \textit{totally ordered} if for any pair $(a,b)$ in $Q$ at least one of $a\leq b$ and $b\leq a$ holds. 
 \end{definition}
+
+\begin{definition}
+    Let $P$ be a set with a partial order relation $\leq$, and let $Q\subset P$. We say that $c\in P$ is an \textit{upper bound} for $Q$ if $a\leq c$ for all $a\in Q$. We say that $m\in P$ is a \textit{maximal element} of $P$ if there is no element $x\in P\setminus\set{m}$ such that $m\leq x$. If every totally ordered subset $Q$ of $P$ has an upper bound, we call $P$ \textit{inductive}.
+\end{definition}
+
+
 
 \end{document}

@@ -1,72 +1,8 @@
 \documentclass[12pt]{article}
 
-% Load AMS packages for advanced math
-\usepackage{amsmath,amssymb,amsthm,mathrsfs, amsfonts}
-\usepackage{pgfplots}
-\usepackage{enumitem}
-\pgfplotsset{compat=newest}
+\usepackage{../mathsnotes}
 
-% Load geometry package and set margins
-\usepackage[margin=1in]{geometry}
-
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{sats}{Sats}[section]
-\newtheorem{theorem}{Theorem}[section]
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem*{remark}{Remark}
-
-% Shortcuts
-\newcommand{\N}{\mathbb{N}}      % natural numbers
-\newcommand{\real}{\mathbb{R}}   % real numbers
-\newcommand{\rat}{\mathbb{Q}}     % rationals
-\newcommand{\eps}{\varepsilon}    % for nice epsilon
-\newcommand{\sol}{ \noindent\textbf{Solution: } }   % creates Solution:
-\newcommand{\prob}[1]{ \noindent\textbf{Problem #1.} }
-\newcommand{\C}{\mathbb{C}}    % complex numbers
-\newcommand{\Fo}{\mathscr{F}}    % fourier
-\newcommand{\F}[1]{\Fo\left[#1\right]}
-\newcommand{\Fi}[1]{\Fo^{-1}\left[#1\right]}
-\newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\set}[1]{\left\{#1\right\}}
-\DeclareMathOperator{\cond}{cond}
-\DeclareMathOperator{\range}{range}
-\DeclareMathOperator{\domain}{domain}
-\DeclareMathOperator{\argmin}{argmin}
-\DeclareMathOperator{\prox}{prox}
-\DeclareMathOperator{\TV}{TV}
-\DeclareMathOperator{\TGV}{TGV^2_{\alpha,\beta}}
-\DeclareMathOperator{\BGV}{BGV^2_{\alpha,\beta}}
-\let\div\relax
-\DeclareMathOperator{\div}{div}
-\DeclareMathOperator{\var}{Var}
-\DeclareMathOperator{\cov}{Cov}
-\DeclareMathOperator{\rank}{rank}
-\newcommand{\E}[1]{\mathbb{E} \left[#1\right]}
-% \DeclareMathOperator{\span}{span}
-\newcommand\norm[1]{\left\lVert#1\right\rVert}
-\newcommand\inner[2]{\left\langle#1, #2\right\rangle}
-
-
-\renewcommand\part[1]{\vspace{.10in}\textbf{(#1)}}
-\newcommand{\algebra}{\mathscr{A}}
-\renewcommand{\L}{\mathscr{L}}
-%\newtheorem*{solution}{Solution}
-\newenvironment{solution}{\renewcommand{\proofname}{Lösning}\begin{proof}}{\end{proof}}
-\newenvironment{bevis}{\renewcommand{\proofname}{Bevis}\begin{proof}}{\end{proof}}
-\newcommand{\exempel}[1]{ \noindent\textbf{Exempel #1.} }
-\usepackage{parskip}
-\usepackage{bbm}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
-% Set linespacing to 1.5
-\baselineskip 1.5em
-
 \begin{center}
 \textbf{\large Notes from lectures SF2529} \\
 Gustaf Bjurstam\\
@@ -110,7 +46,7 @@ Since the 1950s there has been a theory built up which works for general inverse
 We have two problems as model cases. Deconvolution, and tomographic imaging.
 
 \subsubsection{Deconvolution}
-We are looking to inverse the effect of convolution, often used to model the degradation of signals. $x*k(t)= \int_{\real^d} x(\tau)k(t-\tau) \,d\tau $. We are thinking of the input as a function. The signal is a function $x:\real^d\to\real$, the data $y:\real^d\to\real$. We are observing $y$ and want to recover $x$ and the kernel $k$ is known. The kernel is $k$. The kernel is the system response. Any translation invariant, linear problem, is a convolution.
+We are looking to invert the effect of convolution, often used to model the degradation of signals. $x*k(t)= \int_{\real^d} x(\tau)k(t-\tau) \,d\tau $. We are thinking of the input as a function. The signal is a function $x:\real^d\to\real$, the data $y:\real^d\to\real$. We are observing $y$ and want to recover $x$, and the kernel $k$ is known. The kernel is $k$. The kernel is the system response. Any translation invariant, linear problem, is a convolution.
 
 For convolution, outside the sampling interval, we either use a \textit{circular model}, meaning that $x$ is extended periodically. The other option is zero-padding.
 
@@ -128,14 +64,14 @@ Probe an object from different directions with a particle or wave, then you hope
 
 Radiative transport equation models the interactions between particles used for probing and the object.
 \begin{equation*}
-    too messy
+    \text{too messy}
 \end{equation*}
 
-In clinical settings we don't need the full model, so we will use that instead. Beer-Lambert's law is the simplest variant of radioative transport equation and disregards many phenomena which could really happen. Assumes material is homogeneous.We call the intensity $I$, the law says $\Delta I/I_{in} = - x\Delta t$, where $\Delta t$ is the thinkness and $x$ is a material constant. What happens if $t\to 0$? In continuous setting
+In clinical settings we don't need the full model, so we will use that instead. Beer-Lambert's law is the simplest variant of radioactive transport equation and disregards many phenomena which could really happen. Assumes material is homogeneous. We call the intensity $I$, the law says $\Delta I/I_{in} = - x\Delta t$, where $\Delta t$ is the thickness and $x$ is a material constant. What happens if $t\to 0$? In continuous setting
 \begin{equation*}
     I'(t) = -xI(t)
 \end{equation*}
-and thus $I= I_0e^{-xt}$. Now consider two slabs with different material, $x$ is called linear attenuation coefficients. Claim $I(t+\Delta t_1+\Delta t_2) = I_0e^{-x_1\Delta t_1 - x_2 \Delta t_2}$. In a general situation with continuous differences we have $x:\real^2\to\real$, we obtain $I_{out} = I_{in}\exp(-\int x \, dt)$ (line integral). We want to find the function $x$ in the inverse problem.
+and thus $I= I_0e^{-xt}$. Now consider two slabs with different material, $x$ is called the linear attenuation coefficient. Claim $I(t+\Delta t_1+\Delta t_2) = I_0e^{-x_1\Delta t_1 - x_2 \Delta t_2}$. In a general situation with continuous differences we have $x:\real^2\to\real$, we obtain $I_{out} = I_{in}\exp(-\int x \, dt)$ (line integral). We want to find the function $x$ in the inverse problem.
 
 More formally, we want to find $x:\real^d\to\real$ ($d=$ 2 or 3), based on information measured $I(s\omega+t\omega^\perp)$ at $s\omega+t\omega^\perp$. Here $\omega$ is just a direction, i.e. a unit vector in $\real^d$. This is a description of coordinates on lines. The difficulty here is that what we want is in $\real^d$, but the data is from lines, i.e. one-dimensional.
 
@@ -167,22 +103,22 @@ We also assume that $A$ to be a linear, bounded, operator.
 \begin{enumerate}[label=H\arabic*]
     \item There should be at least one solution (existence)
     \item There should be at most one solution (uniqueness)
-    \item The solution should be depend continuously on data (stability)
+    \item The solution should depend continuously on data (stability)
 \end{enumerate}
-A problem where all three conditions hold is called \textit{well posed}. If any fail then it is \textit{ill-posed}.
+A problem where all three conditions holds, is called \textit{well-posed}. If any fails, then it is \textit{ill-posed}.
 
 Unfortunately most inverse problems are ill-posed. By changing the notion of solution we can often handle conditions 1 and 2, so stability is usually the bigger problem.
 
 \subsection{Naïve reconstruction}
 Assume $A:X\to Y$ injective, with  $A^{-1}:A(X)\to X$. If $y\notin A(X)$ (due to $\eps$), then there is no $x\in X$ such that $y=A(x)$. 
 
-If $y\notin A(X)$, project $y\mapsto \tilde{y}\in A(x)$. We than have two naive inversions
+If $y\notin A(X)$, project $y\mapsto \tilde{y}\in A(x)$. We then have two naïve inversions
 \begin{enumerate}
     \item $x^*=A^{-1}\tilde{y}$
     \item If $A$ is not invertible, use least-squares, solving $x^* = \argmin_x \norm{A(x)-y}_y^2$ or $x^*= \argmin(\norm{x})$ such that $x$ is a solution to $A(x)=\tilde{y}$.
 \end{enumerate}
 
-In order to invert the convolution we use Fourier transform. $\F{y}=\F{x}\F{k}$. We can then just take $x = \Fi{\frac{\F{y}}{\F{k}}}$. This clearly doesn't work if $\F{k}$ ever is zero, the division is the problem.
+In order to invert the convolution we use Fourier transform $\Fo{y}=\Fo{x}\Fo{k}$. We can then just take $x = \Foi{\frac{\Fo{y}}{\Fo{k}}}$. This clearly doesn't work if $\Fo{k}$ ever is zero, the division is the problem.
 
 For the tomography problem in 2D, we have (harmonic analysis needed) an inversion formula. $t\in\real^2$
 
@@ -191,7 +127,7 @@ For the tomography problem in 2D, we have (harmonic analysis needed) an inversio
 \end{equation*}
 where 
 
-$$G(y)(\theta,p)= \frac{1}{2\pi}\int_\real \F{y(\theta,\cdot)}(\zeta)e^{i\zeta \cdot p}|\zeta|\, d\zeta = \Fi{\F{y(\theta,\cdot)}(\zeta) |\zeta|}.$$.
+$$G(y)(\theta,p)= \frac{1}{2\pi}\int_\real \Fo{y(\theta,\cdot)}(\zeta)e^{i\zeta \cdot p}|\zeta|\, d\zeta = \Foi{\Fo{y(\theta,\cdot)}(\zeta) |\zeta|}.$$.
 
 \subsection{Inverse crimes}
 \begin{itemize}
@@ -203,9 +139,9 @@ $$G(y)(\theta,p)= \frac{1}{2\pi}\int_\real \F{y(\theta,\cdot)}(\zeta)e^{i\zeta \
 \subsection{Can we work in finite dimensions?}
 Actual measured data is given on finitely many points. There is a sampling operator $S_y:Y\to\real^m$. In the \textit{semi-discrete inverse problem} we keep $x$ continuous but use sampled data. $\bar{y} = (S_y\circ A)(x) + \bar{\eps}$. There is not much to do here however, we should go fully discrete or fully continuous.
 
-We need $E_x:\real^n\to X$ to extend the finite $x$ to actual functions. We want $(S_y\circ A \circ E_x)= \mathcal{A}$. If all of the operators are linear, then the total transformation is also linear. 
+We need $E_x:\real^n\to X$ to extend the finite $x$ to actual functions. We want $(S_y\circ A \circ E_x)= \Acal$. If all the operators are linear, then the total transformation is also linear. 
 
-In the fully discrete problem, we want to find $\bar{x}\in\real^n$ such that $y=(S_y\circ A\circ E_x)x + \bar{e}$. The matrix we obtain for $\mathcal{A}$ quickly gets obscenely large, and this is a huge problem in applications that we will need to handle. It is often not possible to store the entire matrix in memory.
+In the fully discrete problem, we want to find $\bar{x}\in\real^n$ such that $\bar{y}=(S_y\circ A\circ E_x)\bar{x} + \bar{\varepsilon}$. The matrix we obtain for $\Acal$ quickly gets obscenely large, and this is a huge problem in applications that we will need to handle. It is often not possible to store the entire matrix in memory.
 
 
 \subsection{Singular Value Decomposition}
@@ -261,32 +197,32 @@ If H1 or H2 fails to hold, we change what we mean by solution. Often we go for t
         \begin{equation*}
             x^\dagger =\begin{cases}
                 \argmin_{x\in X} \norm{x}_X,\\
-                x \text{ is a least square solution}.
+                x \text{ is a least squares solution}.
             \end{cases}
         \end{equation*}
     \end{enumerate}
 \end{definition}
 
-Assume $\range(A)$ is not closed, then $X\mapsto \norm{Ax-y}$ does not attain a minimum. Thus, the least square solution does not exist.  It is natural to ask for what problems a least square solution exist.
+Assume $\range(A)$ is not closed, then $X\mapsto \norm{Ax-y}$ does not attain a minimum. Thus, the least squares solution does not exist.  It is natural to ask for what problems a least squares solution exist.
 
 \begin{theorem}[Moore-Penrose]
-    Assume $A\in \mathcal{L}(X,Y)$, and set $\tilde{A}:\ker(A)^\perp \to A(X)$ as $\tilde{A}=A\Big|_{\ker(A)^\perp}$, then there exists a \textbf{unique} extension of $A^\dagger $ of $\tilde{A}^{-1}$ where the domain of $\domain(A^\dagger )=A(X)\oplus A(X)^\perp$ and $\ker A^\dagger  = A(X)^\perp$.
+    Assume $A\in \Lcal(X,Y)$, and set $\tilde{A}:\ker(A)^\perp \to A(X)$ as $\tilde{A}=A\Big|_{\ker(A)^\perp}$, then there exists a \textbf{unique} extension of $A^\dagger $ of $\tilde{A}^{-1}$ where the domain of $\domain(A^\dagger )=A(X)\oplus A(X)^\perp$ and $\ker A^\dagger  = A(X)^\perp$.
 \end{theorem}
 
 There are three ways to define the Moore-Penrose inverse on a Banach space.
 
 \begin{theorem}
-    If $y\in\domain(A^\dagger )$, then $x$ is a least square solution if and only if $A^*Ax=A^*y$.
+    If $y\in\domain(A^\dagger )$, then $x$ is a least squares solution if and only if $A^*Ax=A^*y$.
 \end{theorem}
 
 The condition H3 fails if $A^\dagger $ does not exist or if $A^\dagger $ is not continuous.
 
 If $A$ is a linear map, then H1-H3 are not independent. 
 \begin{theorem}
-    If $X,Y$ are Banach spaces and $A\in\mathcal{L}(X,Y)$. Then H1+H2 $\implies$ H3.
+    If $X,Y$ are Banach spaces and $A\in\Lcal(X,Y)$. Then H1+H2 $\implies$ H3.
 \end{theorem}
 \begin{proof}
-    Any linear map between normed spaces that is bounded, is continuous. Thus it is enough to show that $A^{-1}$ is linear and bounded. \textcolor{red}{Do this perhaps}
+    Any linear map between normed spaces that is bounded, is continuous. Thus, it is enough to show that $A^{-1}$ is linear and bounded. \textcolor{red}{Do this perhaps}
 \end{proof}
 \textcolor{red}{What is the graph of an operator???}
 
@@ -294,13 +230,13 @@ If $A$ is a linear map, then H1-H3 are not independent.
 Compact operators are the infinite dimensional analogue to ill-conditioned matrices.
 
 \begin{definition}
-    Let $X,Y$ are Banach spaces. The operator $A\in\mathcal{L}(X,Y)$ is \textit{compact} if it maps bounded sequences in $X$ to sequences in $Y$ which has a convergent subsequence.
+    Let $X,Y$ are Banach spaces. The operator $A\in\Lcal(X,Y)$ is \textit{compact} if it maps bounded sequences in $X$ to sequences in $Y$ which has a convergent subsequence.
 \end{definition}
 
 \textcolor{blue}{Think about how Theorem 3.3 and 3.4 go together.}
 
 \begin{theorem}
-    If $A\in \mathcal{L}(X,Y)$, compact and $\dim(A(X))=\infty$, then $A^\dagger $ is not continuous.
+    If $A\in \Lcal(X,Y)$, compact and $\dim(A(X))=\infty$, then $A^\dagger $ is not continuous.
 \end{theorem}
 \begin{remark}
     Equivalently, the preimage of $A$ is a compact set.
@@ -308,18 +244,18 @@ Compact operators are the infinite dimensional analogue to ill-conditioned matri
 
 Examples of compact operators are 
 \begin{itemize}
-    \item if $A\in\mathcal{L}(X,Y)$ has finite rank, then $A$ is compact.
+    \item if $A\in\Lcal(X,Y)$ has finite rank, then $A$ is compact.
     \item The identity mapping $I:X\to X$ is compact if and only if $X$ is finite dimensional.
-    \item If $A\in \mathcal{L}(X,Y)$ and $B:Y\to E$ is compact, then $B\circ A$ is compact.
+    \item If $A\in \Lcal(X,Y)$ and $B:Y\to E$ is compact, then $B\circ A$ is compact.
     \item If we have Hilbert spaces, $A$ is compact if and only if $A^*$ is compact.
 \end{itemize}
 \textcolor{red}{Prove the statement about the identity mapping}
 
 \begin{theorem}
-    Let $A\in \mathcal{L}(X,Y)$ be compact. If $A(X)$ is infinite dimensional, then $A^\dagger $ is not continuous, so H3 does not hold.
+    Let $A\in \Lcal(X,Y)$ be compact. If $A(X)$ is infinite dimensional, then $A^\dagger $ is not continuous, so H3 does not hold.
 \end{theorem}
 \begin{proof}
-    $A$ is injective $\implies A^\dagger =A^{-1}$. Assume $\dim A(X)=\infty$ and that $A^{-1}\in \mathcal{L}(X,Y)$. Then the identity mapping $I=A^{-1}\circ A$, is continuous and compact. Then $X$ is finite dimensional, contradicting $\dim A(X)=\infty$. 
+    $A$ is injective $\implies A^\dagger =A^{-1}$. Assume $\dim A(X)=\infty$ and that $A^{-1}\in \Lcal(X,Y)$. Then the identity mapping $I=A^{-1}\circ A$, is continuous and compact. Then $X$ is finite dimensional, contradicting $\dim A(X)=\infty$. 
 \end{proof}
 
 \begin{theorem}
@@ -328,11 +264,11 @@ Examples of compact operators are
 
 Example: $X=L^2(\Omega)$, $A:X\to X$ defined by $Ax=\int_\Omega k(s,t)x(t) \,dt$ with $k\in L^2(\Omega\times \Omega)$, then $A$ is compact.
 
-Proof: \textbf{Fourier analysis pog}. The space $L^2(\Omega)$ has an orthonormal basis $\{\varphi_i\}$. So does $L^2(\Omega\times \Omega)$, set $\{\phi_i(s)\phi_j(t)\}$. We can write $k = \sum_{i,j} k_{i,j}\phi_i\phi_j$, where $k_{i,j}$ are the Fourier coefficients $k_{i,j} = \int_{\Omega^2}k\phi_i\phi_j$. Equalities are almost everywhere. Set $k_n = \sum_{i,j=0}^n k_{i,j}\phi_i\phi_j$ and $A_n(x) =\int_\Omega k_n(s,t)x(t)\,dt $. If each $A_n$ is compact, and if $A_n\to A$, then $A$ is compact. Notice that $\dim A_n(X)$ is finite, \textcolor{red}{......}
+Proof: The space $L^2(\Omega)$ has an orthonormal basis $\{\varphi_i\}$. So does $L^2(\Omega\times \Omega)$, set $\{\varphi_i(s)\varphi_j(t)\}$. We can write $k = \sum_{i,j} k_{i,j}\varphi_i\varphi_j$, where $k_{i,j}$ are the Fourier coefficients $k_{i,j} = \int_{\Omega^2}k\varphi_i\varphi_j$. Equalities are almost everywhere. Set $k_n = \sum_{i,j=0}^n k_{i,j}\varphi_i\varphi_j$ and $A_n(x) =\int_\Omega k_n(s,t)x(t)\,dt $. If each $A_n$ is compact, and if $A_n\to A$, then $A$ is compact. Notice that $\dim A_n(X)$ is finite, \textcolor{red}{......}
 
 Let $X_n=A_n(X)$, so $X_n$ has finite dimension. 
 
-this is theorem 3.4 in the book
+This is theorem 3.4 in the book
 
 \begin{equation*}
     \begin{aligned}
@@ -344,7 +280,7 @@ this is theorem 3.4 in the book
 \end{equation*}
 
 \begin{definition}
-    On $\mathcal{L}(X,Y)$ we define the norm by $\norm{A} = \sup_{\norm{x}_X=1}\norm{Ax}_Y$.
+    On $\Lcal(X,Y)$ we define the norm by $\norm{A} = \sup_{\norm{x}_X=1}\norm{Ax}_Y$.
 \end{definition}
 
 \newpage
@@ -362,52 +298,52 @@ this is theorem 3.4 in the book
 \end{itemize}
 
 \subsection{SVD of operators}
-Operators might not have countably many singular values. Compact operators however, luckily, have countably many eigenvalues values.
+Operators might not have countably many singular values. Compact operators however, luckily, have countably many singular values.
 
 \begin{theorem}
-    Let $X,Y$ be Banach spaces. If $A\in\mathcal{L}(X,Y)$ is compact. Then $\dim(A(X)) =\infty$ and $A^\dagger :Y\to X$ is not continuous. And $A^\dagger \Longleftrightarrow A(X)$ is closed. 
+    Let $X,Y$ be Banach spaces. If $A\in\Lcal(X,Y)$ is compact and $\dim(A(X)) =\infty$, then $A^\dagger :Y\to X$ is not continuous. Furthermore, $A^\dagger \text{ is continuous}\Longleftrightarrow A(X)$ is closed. 
 \end{theorem}
 
 \begin{theorem}[Spectral decomposition]
-    Let $X$ be a Hilber space, $N:X\to X$ is self-adjoint and compact. Then there exists an ON-basis $\{\phi_j\}\subset X$ of $\overline{N(X)}$ and $\{\lambda_j\}\subset \real$ with $\abs{\lambda_1}\geq \abs{\lambda_2} \geq \dots > 0$ such that $N(x) = \sum_j \lambda_j \inner{x}{\phi_j}\phi_j$ for all $x\in X$.
+    Let $X$ be a Hilbert space, $N:X\to X$ is self-adjoint and compact. Then there exists an ON-basis $\{\varphi_j\}\subset X$ of $\overline{N(X)}$ and $\{\lambda_j\}\subset \real$ with $\abs{\lambda_1}\geq \abs{\lambda_2} \geq \dots > 0$ such that $N(x) = \sum_j \lambda_j \inner{x}{\varphi_j}\varphi_j$ for all $x\in X$.
 \end{theorem}
 
 \begin{theorem}[SVD of compact operator]
-    Let $X,Y$ be Hilbert spaces, and $A\in \mathcal{L}(X,Y)$ be compact. Then there exists:
+    Let $X,Y$ be Hilbert spaces, and $A\in \Lcal(X,Y)$ be compact. Then there exists:
     \begin{enumerate}[label=(\alph*)]
         \item $\{\sigma_j\} \subset \real$ s.t. $\sigma_1\geq \sigma_2\geq\dots\geq 0$,
-        \item $\{\phi_j\}\subset X$ is an ON-basis of $\ker A^\perp$, and
-        \item $\{\psi_j\}\subset Y$ is an ON-basis of $\overline{A(X)}$.
+        \item $\{\varphi_j\}\subset X$ is an ON-basis of $\ker A^\perp$, and
+        \item $\{\psi_j\}\subset Y$ is an ON-basis of $\overline{A(X)}$
     \end{enumerate}
     such that 
     \begin{enumerate}[label=(\roman*)]
-        \item $A(\phi_j) = \sigma_j \psi_j$, and $A*(\psi_j) = \sigma_j \phi_j$,
-        \item $A(x) = \sum_j \sigma_j \inner{x}{\phi_j}_X \psi_j$ for all $x\in X$.
-        \item $A^*(y) = \sum_j \sigma_j \inner{y}{\psi_j}_Y \phi_j$ for all $y\in Y$.
+        \item $A(\varphi_j) = \sigma_j \psi_j$, and $A*(\psi_j) = \sigma_j \varphi_j$,
+        \item $A(x) = \sum_j \sigma_j \inner{x}{\varphi_j}_X \psi_j$ for all $x\in X$.
+        \item $A^*(y) = \sum_j \sigma_j \inner{y}{\psi_j}_Y \varphi_j$ for all $y\in Y$.
     \end{enumerate}
 \end{theorem}
 
 
-Notice that the eigenvalues of $N=A^*A$ with eigenvectors $\{\phi_j\}$ are also eigenvalues of $AA^*$ with eigenvectors $\{ \psi_j\}$, we have $\sigma_j = \sqrt{\lambda_j}$ and $\psi_j = \frac{1}{\sigma_j}A\phi_j$.
+Notice that the eigenvalues of $N=A^*A$ with eigenvectors $\{\varphi_j\}$ are also eigenvalues of $AA^*$ with eigenvectors $\{ \psi_j\}$, we have $\sigma_j = \sqrt{\lambda_j}$ and $\psi_j = \frac{1}{\sigma_j}A\varphi_j$.
 
 \begin{theorem}[Picard criteria]
-    Let $A\in \mathcal{L}(X,Y)$ be compact, with SVD $\{(\sigma_j,\phi_j, \psi_j)\}$ and $y\in \overline{A(X)}$, then
+    Let $A\in \Lcal(X,Y)$ be compact, with SVD $\{(\sigma_j,\varphi_j, \psi_j)\}$ and $y\in \overline{A(X)}$, then
     \begin{equation*}
         y\in A(X) \Longleftrightarrow \sum_j \frac{\abs{\inner{y}{\psi_j}_Y}^2}{\sigma_j^2}<\infty.
     \end{equation*}
 \end{theorem}
 
 \begin{theorem}[SVD of $A^\dagger $]
-    If $A\in \mathcal{L}(X,Y)$ compact with SVD $\{(\sigma_j,\phi_j, \psi_j)\}$  and $y\in\domain A^\dagger $, then
+    If $A\in \Lcal(X,Y)$ compact with SVD $\{(\sigma_j,\varphi_j, \psi_j)\}$  and $y\in\domain A^\dagger $, then
     \begin{equation*}
-        A^\dagger y = \sum_j \frac{1}{\sigma_j}\inner{y}{\psi_j}_Y\phi_j.
+        A^\dagger y = \sum_j \frac{1}{\sigma_j}\inner{y}{\psi_j}_Y\varphi_j.
     \end{equation*}
 \end{theorem}
 
 Notice that the right-hand side accepts any $y\in Y$, could we extend $A^\dagger $ this way?
 \begin{itemize}
     \item The SVD of $A^\dagger $ encodes the stability properties of "inverting" $A$.
-    \item Consider $y^\delta = y +\eps$, where $y$ is the ideal data and we take $\eps = \delta \psi_j$. The minimum norm solutions $x^\dagger  = A^\dagger y$, and $x^\delta = A^\dagger y^\delta$. The difference becomes $\frac{\delta}{\sigma_j}\phi_j$. Which for small $\sigma_j$ might grow very large.
+    \item Consider $y^\delta = y +\eps$, where $y$ is the ideal data and we take $\eps = \delta \psi_j$. The minimum norm solutions $x^\dagger  = A^\dagger y$, and $x^\delta = A^\dagger y^\delta$. The difference becomes $\frac{\delta}{\sigma_j}\varphi_j$. Which for small $\sigma_j$ might grow very large.
     \item We can use the singular values to put a "measure" on ill-posedness.
     \begin{itemize}
         \item We can say that a problem is severely ill-posed if the singular values decay exponentially.
@@ -418,31 +354,31 @@ Notice that the right-hand side accepts any $y\in Y$, could we extend $A^\dagger
 \subsection{Regularisation method}
 Earlier we changed the solution to get out of the problems of H1 and H2, can we do it again to solve H3?
 
-The first idea is to truncate the SVD, and look in a finite dimensional sub-space.
+The first idea is to truncate the SVD, and look in a finite dimensional subspace.
 
 The second is \textit{filter functions} where we instead apply functions to the singular values first.
 
 \begin{definition}
-    Let $X, Y$ be Banach spaces and $A\in \mathcal{L}(X,Y)$. A family $\{R_\alpha\}$ is a regularisation of $A^\dagger :Y\to X$ if 
+    Let $X, Y$ be Banach spaces and $A\in \Lcal(X,Y)$. A family $\{R_\alpha\}$ is a regularisation of $A^\dagger :Y\to X$ if 
     \begin{enumerate}[label=(\alph*)]
         \item each $R_\alpha:Y\to X$,
         \item each $R_\alpha$ is continuous
         \item $\lim_{\alpha\to 0} R_\alpha(y) = A^\dagger (y)$ for all $y\in \domain A^\dagger $.
     \end{enumerate}
-    If each $R_\alpha\in\mathcal{L}(X,Y)$, then the regularisation is said to be linear.
+    If each $R_\alpha\in\Lcal(X,Y)$, then the regularisation is said to be linear.
 \end{definition}
 
 Hence, we have reformulated the inverse problem by looking for solutions to $R_\alpha$ and thus ensured H3.
 
 \begin{theorem}
-    Let $X,Y$ be Hilbert spaces, $A\in \mathcal{L}(X,Y)$, and $\{R_\alpha\}$ is a linear regularisation. If 
+    Let $X,Y$ be Hilbert spaces, $A\in \Lcal(X,Y)$, and $\{R_\alpha\}$ is a linear regularisation. If 
     \begin{enumerate}[label=(\alph*)]
         \item $A^\dagger $ is not continuous, then $\{ R_{\alpha} \}$ is not uniformly bounded. Then there exists $y\in Y$ such that $\norm{R_{\alpha} y}_X \to \infty$ as $\alpha \to 0$. 
-        \item $\norm{AR_\alpha}_{\mathcal{L}(X,Y)} < \infty \implies \norm{R_\alpha y}_X \to \infty$ as $\alpha \to 0$ for all $y \notin \domain A^\dagger $. 
+        \item $\norm{AR_\alpha}_{\Lcal(X,Y)} < \infty \implies \norm{R_\alpha y}_X \to \infty$ as $\alpha \to 0$ for all $y \notin \domain A^\dagger $. 
     \end{enumerate}
 \end{theorem}
 
-In applications, we cannot expect $y\in \domain A^\dagger $. Consider data $y^\delta = y+ \eps$ with  $\norm{y^\delta - y}\leq delta$. And a linear regularisation $R_\alpha$, the total error $\norm{R_\alpha(y^\delta)-A^\dagger (y)}_X \leq \norm{R_\alpha(\eps)}_X + \norm{R_\alpha y - A^\dagger  y}_X \leq \delta \norm{R_\alpha}_{\mathcal{L}(X,Y)} + \norm{R_\alpha y - A^\dagger  y}_X$. First term is \textit{data error} and second \textit{approximation error}.
+In applications, we cannot expect $y\in \domain A^\dagger $. Consider data $y^\delta = y+ \eps$ with  $\norm{y^\delta - y}\leq delta$. And a linear regularisation $R_\alpha$, the total error $\norm{R_\alpha(y^\delta)-A^\dagger (y)}_X \leq \norm{R_\alpha(\eps)}_X + \norm{R_\alpha y - A^\dagger  y}_X \leq \delta \norm{R_\alpha}_{\Lcal(X,Y)} + \norm{R_\alpha y - A^\dagger  y}_X$. First term is \textit{data error} and second \textit{approximation error}.
 
 The data error does not stay bounded as $\alpha \to 0$. The approximation error goes to 0 as $\alpha\to 0$. Picking a good $\alpha$ is almost like the bias-variance trade-off.
 
@@ -450,9 +386,9 @@ The data error does not stay bounded as $\alpha \to 0$. The approximation error 
 Tikhonov was the first to study regularisation that wasn't built problem specific, that it generally applicable. 
 
 \begin{definition}[Spectral regularisation]
-    Let $X,Y$ be Hilbert spaces and $A\in \mathcal{L}(X,Y)$, so $A^\dagger $ is not continuous, and $A$ have SVD $\{(\sigma_j,\phi_j, \psi_j)\}$. The SVD of $A^\dagger $ is $\{(1/\sigma_j,\psi_j, \phi_j)\}$. Define $R_\alpha:Y\to X$ as 
+    Let $X,Y$ be Hilbert spaces and $A\in \Lcal(X,Y)$, so $A^\dagger $ is not continuous, and $A$ have SVD $\{(\sigma_j,\varphi_j, \psi_j)\}$. The SVD of $A^\dagger $ is $\{(1/\sigma_j,\psi_j, \varphi_j)\}$. Define $R_\alpha:Y\to X$ as 
     \begin{equation*}
-        R_\alpha(y) = \sum_j g_\alpha(\sigma_j)\inner{y}{\psi_j}\phi_j, \quad \forall y\in Y,
+        R_\alpha(y) = \sum_j g_\alpha(\sigma_j)\inner{y}{\psi_j}\varphi_j, \quad \forall y\in Y,
     \end{equation*} 
     where $g_\alpha:\real^{+} \to \real^+$ is called a \textit{spectral filter} and 
     \begin{enumerate}[label=(\alph*)]
@@ -535,21 +471,21 @@ Can we determine "forms" of choice rules?
     Let $\{R_\alpha\}$ be a linear regularisation method for $A^\dagger $. It is convergent with respect to an a priori choice rule $\alpha$ if and only if 
     \begin{enumerate}[label=(\alph*)]
         \item $\lim_{\delta\to 0} \alpha(\delta) = 0$, and 
-        \item $\lim_{\delta\to 0} \delta\norm{R_\alpha}_{\mathcal{L}(X,Y)} = 0$.
+        \item $\lim_{\delta\to 0} \delta\norm{R_\alpha}_{\Lcal(X,Y)} = 0$.
     \end{enumerate}
 \end{theorem}
 
 Often people choose $\alpha = \delta^p$ for some $p\in(0,1)$. We define the \textit{best} $p$ as the one which achieves the fastest convergence rate. Finding the best $p$ depends on the regularisation method and requires additional information about $x^\dagger =A^\dagger y$.
 
 \subsection{A posteriori choice rules}
-We will only study one, the most widely used rule. For notation's sake, let $x_{\alpha,\delta} = R_\alpha y^\delta$, and $y= A^\dagger x^\dagger $, where $x^\dagger $ is minimum norm least square solution. The idea is to chose $\alpha(\delta,y^\delta)$ such that 
+We will only study one, the most widely used rule. For notation's sake, let $x_{\alpha,\delta} = R_\alpha y^\delta$, and $y= A^\dagger x^\dagger $, where $x^\dagger $ is the minimum norm least square solution. The idea is to chose $\alpha(\delta,y^\delta)$ such that 
 \begin{equation*}
     \norm{A(x_{\alpha(\delta,y^\delta),\delta}) -y^\delta } \leq \delta.
 \end{equation*}
 In order to do this practically, we take a sequence of $\alpha_1>\alpha_2>\dots>0$ and compute $x_j=R_{\alpha_j} y^\delta$, and then just check which $\alpha$ is the largest acceptable. This is called the Morozov discrepancy principle.
 
 \subsection{Spectral regularisation}
-Let $A$ be a compact linear operator from $X$ to $Y$. Then $A$ has a singular value decomposition $\{(\sigma_j,\phi_j,\psi_j)\}$.
+Let $A$ be a compact linear operator from $X$ to $Y$. Then $A$ has a singular value decomposition $\{(\sigma_j,\varphi_j,\psi_j)\}$.
 
 \begin{theorem}
     If $x_\alpha = R_\alpha y$, where $\{R_\alpha\}$ is Tikhonov regularisation, then 
@@ -604,7 +540,7 @@ First we should prove Theorem 6.3.
             &= \sum \frac{\sigma}{\sigma^2+\alpha}\inner{y}{\psi} \sigma^2\varphi
         \end{aligned}
     \end{equation*}
-    Where we are allowed take $(A^*A)$ inside due to convergence and continuity. Thus
+    Where we are allowed take $(A^*A)$ inside due to convergence and continuity. Thus,
     \begin{equation*}
         (A^*A +\alpha I)x_\alpha = \sum {\sigma}\inner{y}{\psi}\varphi = A^*y.
     \end{equation*}
@@ -635,31 +571,31 @@ First we should prove Theorem 6.3.
 \end{remark}
 The normal equations $A^*Ax=A^*y$ is equivalent to $x=\argmin \norm{Ax -y}_Y^2$. 
 \begin{proof}[Proof of optimisation part of Theorem 6.3]
-    Knowing that $x=R_\alpha y$ we have to show that $x_\alpha$ is the minimiser to $x'\mapsto \norm{Ax-y}^2_Y+\alpha\norm{x}^2_X=\mathcal{E}_\alpha(x')$. Equivalently, that if $x\in X$ then $\mathcal{E}_\alpha(x)>\mathcal{E}_\alpha(x_\alpha)$. Let $x\in X$, then 
+    Knowing that $x=R_\alpha y$ we have to show that $x_\alpha$ is the minimiser to $x'\mapsto \norm{Ax-y}^2_Y+\alpha\norm{x}^2_X=\Ecal_\alpha(x')$. Equivalently, that if $x\in X$ then $\Ecal_\alpha(x)>\Ecal_\alpha(x_\alpha)$. Let $x\in X$, then 
     \begin{equation*}
         \begin{aligned}
-            \mathcal{E}_\alpha(x) - \mathcal{E}_\alpha(x_\alpha) &= \inner{Ax-y}{Ax-y} + \alpha\inner{x}{x}-\inner{Ax_\alpha-y}{Ax_\alpha-y} + \alpha\inner{x_\alpha}{x_\alpha}\\
+            \Ecal_\alpha(x) - \Ecal_\alpha(x_\alpha) &= \inner{Ax-y}{Ax-y} + \alpha\inner{x}{x}-\inner{Ax_\alpha-y}{Ax_\alpha-y} + \alpha\inner{x_\alpha}{x_\alpha}\\
             &= \norm{Ax-Ax_\alpha}^2 + \alpha \norm{x-x_\alpha}^2 + 2\inner{\underbrace{A^*(Ax_\alpha -y) + \alpha x_\alpha}_{=0}}{x-x_\alpha}
         \end{aligned}
     \end{equation*}
-    Now for the other direction. Assume $\tilde{x}$ minimises $\mathcal{E}_\alpha$. We must show $R_\alpha y = \tilde{x}$. Since $\tilde{x}$ is a minimiser, so $\mathcal{E}_\alpha(x)-\mathcal{E}_\alpha(\tilde{x})\geq0$ for any $x\in X$. In particular, $x= \tilde{x} + t x_0$, for $t>0$ and $x_0\in X$. Then
+    Now for the other direction. Assume $\tilde{x}$ minimises $\Ecal_\alpha$. We must show $R_\alpha y = \tilde{x}$. Since $\tilde{x}$ is a minimiser, so $\Ecal_\alpha(x)-\Ecal_\alpha(\tilde{x})\geq0$ for any $x\in X$. In particular, $x= \tilde{x} + t x_0$, for $t>0$ and $x_0\in X$. Then
     \begin{equation*}
-        0\leq \mathcal{E}_\alpha(x)-\mathcal{E}_\alpha(\tilde{x}) = t^2 \norm{Ax_0}^2 + t^2 \alpha \norm{x_0}^2 + 2t \inner{A^*(A\tilde{x}-y)+ \alpha \tilde{x}}{x_0}
+        0\leq \Ecal_\alpha(x)-\Ecal_\alpha(\tilde{x}) = t^2 \norm{Ax_0}^2 + t^2 \alpha \norm{x_0}^2 + 2t \inner{A^*(A\tilde{x}-y)+ \alpha \tilde{x}}{x_0}
     \end{equation*}
     Divide by $t>0$ and take limit as $t\to0$. Then
     \begin{equation*}
         \inner{A^*(A\tilde{x}-y)+ \alpha \tilde{x}}{x_0}\geq 0
     \end{equation*}
-    for any $x_0\in X$. Since $x_0$ is arbitrary we have that the left entry of the inner product is 0. (Otherwise $-x_0$ would give negative inner product which isn't allowed). Thus $\tilde{x}=x_\alpha$. 
+    for any $x_0\in X$. Since $x_0$ is arbitrary we have that the left entry of the inner product is 0. (Otherwise $-x_0$ would give negative inner product which isn't allowed). Thus, $\tilde{x}=x_\alpha$. 
 \end{proof}
-Thus we could define Tikhonov regularisation from the optimisation problem, but using that as a starting point makes it difficult to prove that it is formally a regularisation method.
+Thus, we could define Tikhonov regularisation from the optimisation problem, but using that as a starting point makes it difficult to prove that it is formally a regularisation method.
 
 \subsection*{Variational models}
 Generally we write variational models as 
 \begin{equation*}
-    R_\alpha(y) = \argmin \mathcal{L}_Y(Ax,y) + \alpha s(x)
+    R_\alpha(y) = \argmin \Lcal_Y(Ax,y) + \alpha s(x)
 \end{equation*}
-where $\mathcal{L}_Y:Y\times Y\to \real^+$ measures the data fidelity and $s:X\to\overline{\real^+}$ is the regulariser. It is often used to encode prior knowledge.
+where $\Lcal_Y:Y\times Y\to \real^+$ measures the data fidelity and $s:X\to\overline{\real^+}$ is the regulariser. It is often used to encode prior knowledge.
 
 \newpage
 \section{Lecture 8 (2025-09-18)}
@@ -671,38 +607,38 @@ where $\mathcal{L}_Y:Y\times Y\to \real^+$ measures the data fidelity and $s:X\t
 \end{itemize}
 A variational model defines a mapping $R_\alpha:Y\to X$ such that 
 \begin{equation*}
-    R_\alpha(y) \in \argmin_{x\in X} \mathcal{E}_{\alpha(x),y}
+    R_\alpha(y) \in \argmin_{x\in X} \Ecal_{\alpha(x),y}
 \end{equation*}
-with $\mathcal{E}_\alpha(x) = \frac{1}{2}\norm{Ax-y}^2 +\alpha S(x)$, where $S$ is the regulariser (in some sense, not rigorous) chosen to ensure $R_\alpha$ is a regularisation model, $S(x)=\frac{1}{2}\norm{x}^2$ is classical Tikhonov regularisation.
+with $\Ecal_\alpha(x) = \frac{1}{2}\norm{Ax-y}^2 +\alpha S(x)$, where $S$ is the regulariser (in some sense, not rigorous) chosen to ensure $R_\alpha$ is a regularisation model, $S(x)=\frac{1}{2}\norm{x}^2$ is classical Tikhonov regularisation.
 
 \subsection{Tikhonov-Philips Ellipse}
 Assume $\mathscr{D}:X\to Z$ linear, and $S(x) = \frac{1}{2}\norm{\mathscr{D}(x)}_Z^2$. 
 \begin{itemize}
     \item The Dirichlet is a special case given by $\mathscr{D}(x) = \nabla x$.
-    \item Let $\mathscr{D}:H^1(\Omega) \to \mathcal{L}^2(\Omega, \real^d)$, $H^1(\Omega) = \{x\in \mathcal{L}^2:\nabla x\in \mathcal{L}^2(\omega,\real^d)\}$.
+    \item Let $\mathscr{D}:H^1(\Omega) \to \Lcal^2(\Omega, \real^d)$, $H^1(\Omega) = \{x\in \Lcal^2:\nabla x\in \Lcal^2(\omega,\real^d)\}$.
     \item Similar, the norm on $H^1$ $S(x) = \frac{1}{2} \norm{x}^2+\norm{\nabla x}^2$. Obviously you can weight this differently, introducing more parameter.
 \end{itemize}
 
 \subsection{Total variation}
-The Tikhonov regularisers smooth edges, that is not always desirable. Let $X=W^{1,1}(\Omega) = \{x\in\mathcal{L}^1(\Omega): \nabla x\in\mathcal{L}^1(\Omega,\real^d)\}$ The TV (total variation) functional is a mapping
+The Tikhonov regularisers smooth edges, that is not always desirable. Let $X=W^{1,1}(\Omega) = \{x\in\Lcal^1(\Omega): \nabla x\in\Lcal^1(\Omega,\real^d)\}$ The TV (total variation) functional is a mapping
 \begin{equation*}
     \TV:X\to\real^+, \qquad \TV(x) = \int_\Omega \abs{\nabla x}
 \end{equation*} 
 In many applications $W^{1,1}$ is too restrictive, as we need jump discontinuities. So we have to extend TV to a broader class of functions.
 \begin{equation*}
-    \text{BV}(\Omega)= \{x\in \mathcal{L}^1:\norm{x}_{\mathcal{L}^1}+\TV <\infty\}
+    \text{BV}(\Omega)= \{x\in \Lcal^1:\norm{x}_{\Lcal^1}+\TV <\infty\}
 \end{equation*}
 Where 
 \begin{equation*}
-    \TV(x) = \sup_{\phi\in D(\Omega,\real^d)}\int_\Omega u(x) (\nabla\cdot \phi)(t)\,dt
+    \TV(x) = \sup_{\varphi\in D(\Omega,\real^d)}\int_\Omega u(x) (\nabla\cdot \varphi)(t)\,dt
 \end{equation*}
-and $D(\Omega,\real^d) = \{\phi\in C_c^\infty(\Omega, \real^d) : \sup_{t\in\Omega} \abs{\phi(t)}_{\real^d}<1\}$. Unfortunately then, BV is no longer a Hilbert space, but only Banach. 
+and $D(\Omega,\real^d) = \{\varphi\in C_c^\infty(\Omega, \real^d) : \sup_{t\in\Omega} \abs{\varphi(t)}_{\real^d}<1\}$. Unfortunately then, BV is no longer a Hilbert space, but only Banach. 
 
 \subsection*{$\ell^1$-regularisation (Lasso)}
 Here $X$ is the set of sequences in $\ell^1$, and $A:\ell^1\to\ell^2$. And $S(x) = \norm{x}_{\ell^1}$. This is sparsity promoting for some reason. Only proven in 2004, compressed sensing. 
 
 \subsection{Theory}
-We have still not properly defined the mapping $R_\alpha$, as we haven't shown uniqueness of the minimiser. In variational models, we define $R_\alpha$ indirectly as the solution to a minimisation problem. Thus we have to show that the problem has a solution, and preferably that it is unique. 
+We have still not properly defined the mapping $R_\alpha$, as we haven't shown uniqueness of the minimiser. In variational models, we define $R_\alpha$ indirectly as the solution to a minimisation problem. Thus, we have to show that the problem has a solution, and preferably that it is unique. 
 
 We also need to show that $y\mapsto R_\alpha(y)$ is a continuous mapping, and that $R_\alpha(y) \to x^\dagger $ as $\alpha\to 0$. If all of this is done, then we can actually call it a regularisation method.
 
@@ -723,23 +659,23 @@ The first step is quite technically demanding. So we will be trying to dumb it d
 \begin{definition}
     A function $S:X\to\overline{\real}$ 
     \begin{enumerate}[label={(\alph*)}]
-        \item is proper if $S(x)>-\infty$ and $\domain S\neq \emptyset$.
+        \item is proper if $S(x)>-\infty$ and $\domain S\neq \emptyset$,
         \item is weakly l.s.c. at $x_0\in X$ if
         \begin{equation*}
             \liminf_{n\to\infty} S(x_n) \geq S(x_0)
         \end{equation*}
-        whenever $x_n$ weakly converges to $x_0$.
+        whenever $x_n$ weakly converges to $x_0$,
         \item is coercive if $S(x_n)\to\infty$ whenever $\norm{x_n}\to\infty$.
     \end{enumerate}
 \end{definition}
 
 \begin{theorem}
-    If the basic assumptions hold. Then $\mathcal{E}_{\alpha,y}:X\to \overline{\real}$ has a minimiser for any $y\in Y$ and $\alpha>0$. 
+    If the basic assumptions hold. Then $\Ecal_{\alpha,y}:X\to \overline{\real}$ has a minimiser for any $y\in Y$ and $\alpha>0$. 
 \end{theorem}
-No proof :c, but we have obtained existence. Relies on Banach-Alaoglu theorem. Called Generalised Weierstrass theorem.
+No proof :c, but we have obtained existence. Relies on Banach-Alaoglu theorem. Called Generalised Weierstra\ss~theorem.
 
 \begin{theorem}
-    If the basic assumptions hold, $S$ is strictly convex or, $S$ is convex and $A$ is injective. Then $\mathcal{E}_{\alpha,y}$ has a unique minimiser.
+    If the basic assumptions hold, $S$ is strictly convex or, $S$ is convex and $A$ is injective. Then $\Ecal_{\alpha,y}$ has a unique minimiser.
 \end{theorem}
 \begin{remark}
     Makes $R_\alpha$ well-defined.
@@ -769,7 +705,7 @@ We might wonder, is the data-fidelity term convex? The answer is yes, it also st
 
 \subsection{Theory of Variational Models}
 \begin{theorem}[Stability]
-    Let $R_\alpha:Y\to X$ be defined as $R_\alpha\in \argmin \mathcal{E}_{\alpha,y}(x)$, and that the basic assumptions hold. Also, let $y_n\to y$ in $Y$. Then the following holds
+    Let $R_\alpha:Y\to X$ be defined as $R_\alpha\in \argmin \Ecal_{\alpha,y}(x)$, and that the basic assumptions hold. Also, let $y_n\to y$ in $Y$. Then the following holds
     \begin{enumerate}[label=(\alph*)]
         \item $R_\alpha(y_n)$ converges weakly to $ R_\alpha(y)$ as $n\to\infty$, and
         \item If $S:X\to\overline{\real}$ satisfies Radon-Riesz property saying that, if $x_n$ converges to $x$ weakly and $S(x_n)\to S(x)$, then $x_n$ converges to $x$ strongly. Then $R_\alpha(y_n)$ converges to $R_\alpha(y)$ strongly and $S(R_\alpha(y_n))\to S(R_\alpha(y))$.
@@ -781,7 +717,7 @@ The $S$-minmising least square solution is $x^\dagger =\argmin_{x\in L_y} S(x)$,
 \begin{definition}
     We redefine \textit{regularisation} to mean
     \begin{itemize}
-        \item $R_\alpha:Y\to X$ well defined
+        \item $R_\alpha:Y\to X$ well-defined
         \item $R_\alpha$ continuous
         \item $R_\alpha y\to x^\dagger $ when $\alpha\to 0$, and $x^\dagger $ is the $S$-minimising least square solution. 
     \end{itemize}
@@ -801,7 +737,7 @@ Most statements about minimum norm solutions extend to $S$-minimising solution a
 \end{theorem}
 
 \subsection{Optimisation methods}
-Evaluting $R_\alpha$ for some given $y$ and $\alpha>0$, we need to solve an optimisation problem:
+Evaluating $R_\alpha$ for some given $y$ and $\alpha>0$, we need to solve an optimisation problem:
 \begin{equation*}
     \argmin_{x\in X} \frac{1}{2}\norm{Ax-y}_Y^2 + \alpha S(x).
 \end{equation*}
@@ -812,7 +748,7 @@ Two ways of solving the problem
     \item Optimise first, then discretise,
     \item Discretise first, then optimise.
 \end{enumerate}
-In the first version, we formulate the optimisation problem in the infinite dimensional setting, and convergence needs to be proven here. We will be taking the second route however. It is important which inner product we get after discretisation. Just picking the Euclidian norm is not a good plan.
+In the first version, we formulate the optimisation problem in the infinite dimensional setting, and convergence needs to be proven here. We will be taking the second route, however. It is important which inner product we get after discretisation. Just picking the Euclidean norm is not a good plan.
 
 
 Henceforth, when we say convergence we just mean that $\overline{x}_n\to\overline{x}$ where 
@@ -892,7 +828,7 @@ Example theorem from the field:
     Let $E\in C^1(\real^d)$ be bounded from below and have $L$-Lipschitz gradient. Then
     \begin{enumerate}[label=(\alph*)]
         \item If $\nu<1/L$, then $\min_{k=0,\dots,n-1} \norm{\nabla E(x_k)}^2\leq \frac{2}{\nu n} (E(x_n)- E_*)$, with $E_* = \inf E$.
-        \item If $E\in C^2$, $x_k$ converge to a local minimimum of $E$ for almost all $x_0$.
+        \item If $E\in C^2$, $x_k$ converge to a local minimum of $E$ for almost all $x_0$.
         \item If $E$ is convex with global minimiser $x_*$, then $E(x_n)-E(x_*)\leq \frac{1}{2\nu n} \norm{x_0-x_*}^2$.
     \end{enumerate}
 \end{theorem}
@@ -1008,11 +944,11 @@ An attempt at recovering edges sharply, but without staircasing the texture. Thi
     \item Design a regulariser $S:X\to\real$ that reduces staircasing while preserving edges. 
 \end{itemize}
 \begin{definition}
-    We have signals $x\in\mathcal{L}^1(\Omega), \Omega\subset \real^d$, and constants $\alpha,\beta>0$. We define
+    We have signals $x\in\Lcal^1(\Omega), \Omega\subset \real^d$, and constants $\alpha,\beta>0$. We define
     \begin{equation*}
-        \TGV(x) = \sup \set{\int_\omega x(t)(\div^2\phi)(t)\,dt: \phi\in C_c^2(\Omega,S^{d\times d}), \norm{\phi}_\infty \leq \beta, \norm{\div \phi}_\infty \leq \alpha}.
+        \TGV(x) = \sup \set{\int_\omega x(t)(\div^2\varphi)(t)\,dt: \varphi\in C_c^2(\Omega,S^{d\times d}), \norm{\varphi}_\infty \leq \beta, \norm{\div \varphi}_\infty \leq \alpha}.
     \end{equation*}
-    Where $C_c^2(\Omega,S^{d\times d})$ is the set of symmetric $d\times d$ matrices and each $\phi_{i,j}$ is differentiable with compact support. Further, $(\div \phi)_i = \sum_{j=1}^d\frac{\partial \phi_{i,j}}{\partial t_j}$, and $\div^2 \phi = \sum_{i=1}^d\frac{\partial \phi_{i,i}}{\partial t_i} + 2\sum_{i<j} \frac{\partial^2\phi_{i,j}}{\partial t_i\partial t_j}$. On the spaces $C^1_c(\Omega,S^{d\times d})$ and
+    Where $C_c^2(\Omega,S^{d\times d})$ is the set of symmetric $d\times d$ matrices and each $\varphi_{i,j}$ is differentiable with compact support. Further, $(\div \varphi)_i = \sum_{j=1}^d\frac{\partial \varphi_{i,j}}{\partial t_j}$, and $\div^2 \varphi = \sum_{i=1}^d\frac{\partial \varphi_{i,i}}{\partial t_i} + 2\sum_{i<j} \frac{\partial^2\varphi_{i,j}}{\partial t_i\partial t_j}$. On the spaces $C^1_c(\Omega,S^{d\times d})$ and
      $C_c(\Omega,\real^d)$ are given as $$\norm{q}_\infty = \sup_{t\in\Omega}\set{\left(\sum_{i=1}^d \abs{q_{i,i}(t)}^2 + 2\sum_{i<j}\abs{q_{i,j}(t)}^2\right)^{1/2}}$$ 
      and $$\norm{p}_\infty = \sup_{t\in\Omega} \set{\left(\sum_{i=1}^d \abs{p_i(t)}^2\right)^{1/2}}.$$
 \end{definition}
@@ -1031,9 +967,9 @@ An attempt at recovering edges sharply, but without staircasing the texture. Thi
 
 The kernel is $\ker \TGV = \set{x:\BGV : x=a\cdot t+b, a\in \real^d, b\in\real}$, i.e. first order polynomials. Obviously the formulation from the definition is not very convenient for computation purposes, as such we have a reformulation which is derived from convex analysis using Fenchel duality.
 \begin{equation*}
-    \TGV(x) = \min_{u\in\text{BD}(\Omega)} \alpha\norm{x-u}_\mathcal{M} + \beta \norm{\mathcal{E}(u)}_\mathcal{M},
+    \TGV(x) = \min_{u\in\text{BD}(\Omega)} \alpha\norm{x-u}_\mathcal{M} + \beta \norm{\Ecal(u)}_\mathcal{M},
 \end{equation*} 
-where BD are functions of bounded deformation, $\mathcal{E}(u)=\frac{1}{2}(\nabla u + \nabla u^T)$ and $\norm{\cdot}_\mathcal{M}$ is a suitable matrix norm. With double optimisation problem (in the variational model), we can solve for $x$ and $u$ together.
+where BD are functions of bounded deformation, $\Ecal(u)=\frac{1}{2}(\nabla u + \nabla u^T)$ and $\norm{\cdot}_\mathcal{M}$ is a suitable matrix norm. With double optimisation problem (in the variational model), we can solve for $x$ and $u$ together.
 
 \subsection{Besov space norm}
 Another attempt at solving the issues with TV. Might skip.
@@ -1069,7 +1005,7 @@ I was not able to attend this lecture, these notes are based on what was written
 
 We take here inverse problems of two flavours.
 \begin{enumerate}[label=(\roman*)]
-    \item Recover $x\in X$ from $Ax + \varepsilon = y$ where $y\in Y$, $\mathbbm{\varepsilon}$ is a $Y$-valued random variable, and $A\in\mathcal{L}(X,Y)$.
+    \item Recover $x\in X$ from $Ax + \varepsilon = y$ where $y\in Y$, $\mathbbm{\varepsilon}$ is a $Y$-valued random variable, and $A\in\Lcal(X,Y)$.
     \item Consider both $\mathbbm{x}$ and $\mathbb{\varepsilon}$ to be samples from $X$-valued and $Y$-valued random variables.
 \end{enumerate}
 
@@ -1183,7 +1119,7 @@ We have worked with four types of solutions
         \item Have something that approximates $R_\alpha \approx A^{-1}$
         \item Very fast, but weak in regularisation power 
     \end{itemize}
-    \item Iterative methods with early stopping (for solving $\argmin \norm{Ax-y}^2)$.
+    \item Iterative methods with early stopping (for solving $\argmin \norm{Ax-y}^2$).
     \begin{itemize}
         \item Early stopping is similar to throwing out high frequency components
         \item Not tied to specific problems, can even be used for non-linear problems

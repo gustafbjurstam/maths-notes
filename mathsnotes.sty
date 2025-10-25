@@ -1,0 +1,72 @@
+\ProvidesPackage{mathsnotes}
+
+% Document related packages
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\baselineskip 1.5em
+
+% AMS packages and other math fonts
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage{bbm}
+
+% Theorem and proof environments
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{sats}{Sats}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{remark}{Remark}
+
+% Shortcuts
+% Specific sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\rat}{\mathbb{Q}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% Various mathscr/mathcal etc, algebras etc.
+\newcommand{\F}{\mathscr{F}}    % Fourier
+\newcommand{\algebra}{\mathscr{A}}
+\newcommand{\Lscr}{\mathscr{L}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Ecal}{\mathcal{E}}
+
+
+% Parentases, sets, norms, etc.
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\inner}[2]{\left\langle#1, #2\right\rangle}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Fo}[1]{\F\left[#1\right]} % Fourier transform
+\newcommand{\Foi}[1]{\F^{-1}\left[#1\right]} % Inverse fourier
+\newcommand{\E}[1]{\mathbb{E} \left[#1\right]} % Expected value
+
+% Operators
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\domain}{domain}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator{\TV}{TV}
+\DeclareMathOperator{\TGV}{TGV^2_{\alpha,\beta}}
+\DeclareMathOperator{\BGV}{BGV^2_{\alpha,\beta}}
+\let\div\relax
+\DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\rank}{rank}
+
+\endinput
