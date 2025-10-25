@@ -1,0 +1,36 @@
+\documentclass[11pt]{article}
+
+\usepackage{../mathsnotes}
+
+% Haim Brezis numbers the lemmas separately
+\cleartheorem{lemma}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+
+\begin{document}
+\begin{center}
+\textbf{\large Theorems from Brezis' \textit{Functional Analysis, Sobolev Spaces and Partial Differential Equations} (first edition)} \\
+Gustaf Bjurstam\\
+bjurstam@kth.se\\
+\end{center}
+
+\section{The Hahn-Banach Theorems. Introduction to Conjugate Convex Functions}
+\begin{theorem}[Hahn-Banach]
+    Let $E$ be a vector space over $\real$, and let $p:E\to\real$ be a Minkowski functional. Let $G$ be a linear subspace of $E$ and let $g:G\to \real$ be a linear functional such that $g(x)\leq p(x)$ for all $x\in G$. There exists a linear functional $f:E\to \real$ such that
+    \begin{equation*}
+        f(x)=g(x),\, \forall x\in G,
+    \end{equation*}
+    and 
+    \begin{equation*}
+        f(x)\leq p(x),\, \forall x\in E.
+    \end{equation*}
+\end{theorem}
+
+\begin{lemma}[Zorn]
+    Every nonempty ordered set that is inductive has a maximal element.
+\end{lemma}
+
+
+
+
+\end{document}

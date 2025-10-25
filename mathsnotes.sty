@@ -16,10 +16,11 @@
 \usepackage{bbm}
 
 % Theorem and proof environments
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{sats}{Sats}[section]
+% By default, all theorems, propositions, lemmas, etc. should share a counter
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -68,5 +69,16 @@
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\cov}{Cov}
 \DeclareMathOperator{\rank}{rank}
+
+% Make it possible to redefine things
+% theorems
+\makeatletter
+\def\cleartheorem#1{%
+    \expandafter\let\csname#1\endcsname\relax
+    \expandafter\let\csname c@#1\endcsname\relax
+}
+\makeatother
+\def\clearthms#1{ \@for\tname:=#1\do{\cleartheorem\tname} }
+
 
 \endinput
