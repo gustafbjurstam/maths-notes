@@ -1,10 +1,13 @@
 \documentclass[11pt]{article}
 
-\usepackage{../mathsnotes}
+\input{../mathsnotes.tex}
 
 % Haim Brezis numbers the lemmas separately
 \cleartheorem{lemma}
 \theoremstyle{plain}
+
+
+
 \newtheorem{lemma}{Lemma}[section]
 
 \begin{document}
@@ -30,6 +33,24 @@ bjurstam@kth.se\\
     Every nonempty ordered set that is inductive has a maximal element.
 \end{lemma}
 
+\begin{corollary}
+    Let $G$ be a linear subspace of the real vector space $E$. If $g\in G^\star$, then there exists $f\in E^\star$ that extends $g$ and such that $\norm{f}_{E^\star} = \norm{g}_{G^\star}$.
+\end{corollary}
+
+\begin{corollary}
+    Let $E$ be a normed real vector space. For every $x\in E$ there is $f\in E^\star$ such that $\norm{f} = \norm{x}$ and $\inner{f}{x} = \norm{x}^2$.
+\end{corollary}
+
+\begin{corollary}
+    For every $x$ in the real normed vector space $E$ we have
+    \begin{equation*}
+        \norm{x} = \sup_{\substack{f\in E^\star \\ \norm{f}\leq 1}} \abs{\inner{f}{x}} = \max_{\substack{f\in E^\star \\ \norm{f}\leq 1}} \abs{\inner{f}{x}}.
+    \end{equation*}
+\end{corollary}
+
+\begin{proposition}
+    Let $E$ be a real normed vector space, and let $H=[f=\alpha]\subset E$ be an affine hyperplane. Then $H$ is closed if and only $f$ is continuous.
+\end{proposition}
 
 
 

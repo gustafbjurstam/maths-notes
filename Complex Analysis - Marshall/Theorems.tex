@@ -1,6 +1,6 @@
 \documentclass[12pt]{article}
 
-\usepackage{../mathsnotes}
+\input{../mathsnotes.tex}
 
 \begin{document}
 \begin{center}
@@ -13,15 +13,15 @@ bjurstam@kth.se\\
     Theorem's for which the proof must be supplied are marked with $(*)$.
 \end{remark}
 
-\begin{sats}
+\begin{theorem}
     Under stereographic projection, circles and lines in $\C$ correspond to circles in $\mathbb{S}^2$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[M test {$*$}]
+\begin{theorem}[M test {$*$}]
     If $|a_n(z-z_0)^n|\leq M_n$ for $|z-z_0|\leq r$ and if $\sum M_n<\infty$, then $\sum a_n(z-z_0)^n$ converges absolutely and uniformly in $\{z:|z-z_0|\leq r\}$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Root test]
+\begin{theorem}[Root test]
     Suppose $\sum a_n(z-z_0)^n$ is a formal power series. Let
     \begin{equation*}
         R=\liminf_{n\to\infty} |a_n|^{-1/n}=\frac{1}{\limsup_{n\to\infty} |a_n|^{1/n}}\in [0, \infty].
@@ -32,37 +32,37 @@ bjurstam@kth.se\\
         \item converges uniformly in $\overline{D(r,z_0}$ for all $r\in(0,R)$,
         \item diverges in $\C\setminus\overline{D(R,z_0)}$.
     \end{enumerate}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Uniqueness $*$]
+\begin{theorem}[Uniqueness $*$]
     If $f$ is analytic in a region $\Omega$ then either $f\equiv 0$ or the zeros of $f$ are isolated.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Power series expansion $*$]
+\begin{theorem}[Power series expansion $*$]
 An analytic function $f$ has derivatives of all orders. If $f$ is equal to a convergent power series on $D(r,z_0)$ then the power series is given by 
 \begin{equation*}
     f(z)=\sum_{n\geq 0} \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n,
 \end{equation*}
 for $z\in D(r,z_0)$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Maximum principle]
+\begin{theorem}[Maximum principle]
     If $f$ is analytic on a region $\Omega$, then unless $f$ is constant, there is no $z_0\in\Omega$ such that $f(z_0)=\sup_{z\in\Omega} f(z)$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Openness of NC analytic maps]
+\begin{theorem}[Openness of NC analytic maps]
     If $E\subseteq \Omega$ is an open set, and $f$ is a non-constant analytic map on $\Omega$, then $f(E)$ is open. 
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Liouville $*$]
+\begin{theorem}[Liouville $*$]
     If $f$ is an entire function, and $f$ is bounded, then $f$ is constant.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Schwarz lemma $*$]
+\begin{theorem}[Schwarz lemma $*$]
     If $f$ is analytic on $\D$, $f(0)=0$, and $|f(z)|\leq 1$ on $\D$, then $|f(z)|<|z|$ for all $z\in\D$, and $f'(0)\leq 1$. Moreover, if $|f(z)|=|z|$ for any non-zero $z\in \D$, or if $|f'(0)|=1$, then there is $c\in\partial \D$ such that $f(z)=cz$.  
-\end{sats}
+\end{theorem}
 
-\begin{sats}[$*$]
+\begin{theorem}[$*$]
     Let $C$ be a positivley oriented circle of radius $r$ centered at $z_0$, then
     \begin{equation*}
         \int_C \frac{dz}{z-a}=\begin{cases}
@@ -70,49 +70,49 @@ for $z\in D(r,z_0)$.
             0,\quad |a-z_0|>r.
         \end{cases}
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Cauchy simple $*$]
+\begin{theorem}[Cauchy simple $*$]
     Let $D$ be a disc of radius $r$ centered at $z_0$, and suppose $f$ is holomorphic on $D$, then $$f(z)=\frac{1}{2\pi i}\int_{\partial D} \frac{f(w)}{w-z}dw$$ for all $z\in D$. 
-\end{sats}
+\end{theorem}
 
-\begin{sats}
+\begin{theorem}
     A function $f$ is holomorphic on a region $\Omega$ if and only if it is analytic on $\Omega$. Moreover, the series expansion for $f$ centered at $z_0\in \Omega$ has the radius of the largest disc centered at $z_0$ and contained in $\Omega$ as its radius of convergence.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Cauchy estimate and derivatives $*$]
+\begin{theorem}[Cauchy estimate and derivatives $*$]
     Let $D$ be a disc of radius $r$ centered at $z_0$, and suppose $f$ is holomorphic on $D$, then $$f^{(n)}(z_0)=\frac{n!}{2\pi i}\int_{\partial D} \frac{f(w)}{(w-z_0)^{n+1}}dw$$ for all $n\geq 0$. And $$|f^{(n)}(z_0)|\leq\frac{n!}{r^n}\sup_{w\in\partial D} |f(w)|$$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Morea]
+\begin{theorem}[Morea]
     If $f$ is continuous in an open disc $B$, and if $$\int_{\partial R} f \, dz=0$$ for all closed rectangels $R\subset B$ with sides parallel to the axes, then $f$ is analytic on $B$. 
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Runge]
+\begin{theorem}[Runge]
     If $f$ is analytic on a compact set $K$, and if $\eps>0$, then there is a rational function $r$ so that 
     \begin{equation*}
         \sup_{z\in K}|f(z)-r(z)|<\eps.
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Weirstrass]
+\begin{theorem}[Weirstrass]
     Suppose $\{f_n\}$ is a collection of analytic functions on a regiona $\Omega$ such that $f_n\to f$ uniformly on compact subsets of $\Omega$. Then $f$ is analytic in $\Omega$. Moreover $f_n'\to f'$ uniformly on compact subsets of $\Omega$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Cauchy integral formula]
+\begin{theorem}[Cauchy integral formula]
     Suppose $\gamma$ is cycle contained in a region $\Omega$, and suppose $$\int_\gamma \frac{dw}{w-a}=0$$ for all $a\notin\Omega$. If $f$ is analytic on $\Omega$ and $z\in \C\setminus\gamma$ then $$\int_\gamma \frac{f(w)}{w-z}\,dw=f(z)\int_\gamma \frac{dw}{w-z}.$$
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Primitive, log, on SCR]
+\begin{theorem}[Primitive, log, on SCR]
     Suppose $f$ is analytic on a simply-connected region $\Omega$. Then 
     \begin{enumerate}[label=(\roman*)]
         \item $\int_\gamma f = 0$ for all closed curves $\gamma\subset\Omega$,
         \item there exists a function $F$ analytic on $\Omega$ such that $F'=f$,
         \item if also $f\neq 0$ for all $z\in\Omega$, then there exists a function $g$ on $\Omega$ such that $f=e^g$.
     \end{enumerate}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Laurent]
+\begin{theorem}[Laurent]
     Suppose $f$ is analytic on $A=\{z:r<|z-a|<R\}$. Then there is a unique sequence $\{a_n\}\subset\C$ so that
     \begin{equation*}
         f(z)=\sum_{n\in\Z} a_n(z-a)^n,
@@ -122,72 +122,72 @@ for $z\in D(r,z_0)$.
         a_n=\frac{1}{2\pi i}\int_{C_s} \frac{f(w)}{(w-a)^{n+1}}\,dw,
     \end{equation*}
     where $C_s$ is a positively oriented circle centered at $a$ with radius $s\in(r,R)$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Density near essential $*$]
+\begin{theorem}[Density near essential $*$]
     If $f$ is analytic in $U=\{z:0<|z-b|<\delta\}$ and if $b$ is an essential singularity of $f$, them $f(U)$ is dense in $\C$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Argument Principle $*$]
+\begin{theorem}[Argument Principle $*$]
     Suppose $f$ is meromorphic in a region $\Omega$, with zeros $z_j$ and poles $p_k$. Suppose $\gamma$ is a cycle with $\gamma\sim 0$ in $\Omega$, and suppose no zero or pole appears on $\gamma$. Then
     \begin{equation*}
         n(f(\gamma),0)=\frac{1}{2\pi i}\int_\gamma\frac{f'}{f} = \sum_j n(\gamma,z_j)-\sum_k n(\gamma,p_k).
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[LFT circles]
+\begin{theorem}[LFT circles]
     LFTs map "circles" onto "circles" and "discs" onto "discs".
-\end{sats}
+\end{theorem}
 
-\begin{sats}[LFT three points $*$]
+\begin{theorem}[LFT three points $*$]
     Given $z_1,z_2,z_3$, distinct points in $\C^*$ and $w_1,w_2,w_3$ distinct points in $\C^*$, there is a unique $LFT$, T, such that $T(z_i)=w_i$, for $i=1,2,3$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Max principle $*$]
+\begin{theorem}[Max principle $*$]
     Let $u$ be subharmonic on a region $\Omega$. Then, unless $u$ is constant, there is no $z\in\Omega$ such that $u(z)=\sup_{w\in\Omega}u(w)$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Poisson integral]
+\begin{theorem}[Poisson integral]
     Let $g$ be a continuous function defined on $\partial\D$, the solution to the Dirichlet problem on $\D$ with boundary values $g$ is given by
     \begin{equation*}
         u(z)=PI(g)(z)=\int_0^{2\pi} P_z(t)g(e^{it})\,dt=\int_{0^{2\pi}}\frac{1}{2\pi}\frac{1-|z|^2}{|e^{it}-z|^2}g(e^{it})\,dt.
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Cauchy-Riemann]
+\begin{theorem}[Cauchy-Riemann]
     Suppose $\Omega$ is a region, and that $u,v:\Omega\to\real$ are $C^1$. Then $u$ and $v$ satisfy the Cauchy-Riemann equations 
     \begin{equation*}
         u_x=v_y,\qquad u_y=-v_x,
     \end{equation*}
     if and only if $f=u+iv$ is holomorphic on $\Omega$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Lindelöf max $*$]
+\begin{theorem}[Lindelöf max $*$]
     Suppose $\Omega$ is a region and that $\{\xi_1,\dots,\xi_n\}$ is a finite subset of $\partial\Omega$, not equal to $\partial\Omega$. If $u$ is subharmonic on $\Omega$ with $u\leq M<\infty$ on $\Omega$ and if 
     \begin{equation*}
         \limsup_{z\in\Omega\to\xi} u(z) \leq m,
     \end{equation*}
     for all $\xi\in\Omega\setminus\{\xi_1,\dots,\xi_n\}$, then $u\leq m$ on $\Omega$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Harnack inequality]
+\begin{theorem}[Harnack inequality]
     Suppose $u$ is a positive harmonic function on $\D$. Then
     \begin{equation*}
         \frac{1-r}{1+r}u(0)\leq u(z)\leq \frac{1+r}{1-r}u(0),
     \end{equation*}   
     for $r=|z|<1$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Harnack's principle]
+\begin{theorem}[Harnack's principle]
     Suppose $\{u_n\}$ are harmonic on a region $\Omega$ such that $u_n(z)\leq u_{n+1}(z)$ for all $z\in\Omega$. Then either
     \begin{enumerate}[label=(\roman*)]
         \item $\lim_n u_n = u$ exists and is harmonic on $\Omega$, or
         \item $\lim_n u_n = \infty$ everywhere,
     \end{enumerate}
     where convergence is uniform on compact subsets of $\Omega$. In case (ii), this means that given compact $K\subset \Omega$ and $M<\infty$, there is $n_0$ such that $u_n>m$ for all $z\in K$, and $n>n_0$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Schwarz reflection]
+\begin{theorem}[Schwarz reflection]
     Suppose $\Omega$ is a region which is symmetric about $\real$. Set $\Omega^+=\Omega\cap\H$ and $\Omega^-=\Omega\setminus\overline{\H}$. If $\nu$ is harmonic on $\Omega^+$, continuous on $\Omega^+\cup(\Omega\cap\real)$ and equal to $0$ on $\Omega\cap\real$, then the function defined by
     \begin{equation*}
         V(z)=\begin{cases}
@@ -203,83 +203,83 @@ for $z\in D(r,z_0)$.
         \end{cases}
     \end{equation*}
     extends to be analytic in $\Omega$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Schwarz-Christoffel]
+\begin{theorem}[Schwarz-Christoffel]
     Suppose $\Omega$ is a bounded simply-connected region whose positively oriented boundary $\partial\Omega$ is a polygon with verticies $v_1,\dots,v_n$. Suppose the tangen direction on $\partial\Omega$ increases by $\pi\alpha_j$ at vertex $v_j$, $\alpha_j\in(-1,1)$. Then there exists $x_1<x_2<\dots<x_n$ and constants $c_1,c_2$ so that
     \begin{equation*}
         f(z) = c_1\int_{\gamma_z} \prod_{j=1}^n (\zeta-x_j)^{-\alpha_j}\,d\zeta +c_2
     \end{equation*}
     is a conformal map of $\H$ onto $\Omega$, where the integral is along any curve $\gamma_z$ in $\H$ from $i$ to $z$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Residue Theorem $*$]
+\begin{theorem}[Residue Theorem $*$]
     Suppose $f$ is analytic in $\Omega$ except for isolated singularities at $a_1,\dots,a_n$. If $\gamma$ is a cycle in $\Omega$ with $\gamma\sim 0$ and $a_j\notin\gamma$, $j=1,\dots,n$, then
     \begin{equation*}
         \int_\gamma f=2\pi i\sum_{k} n(\gamma,a_k)\text{Res}_{a_k} f.
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Arzela-Ascoli]
+\begin{theorem}[Arzela-Ascoli]
     A family $\mathcal{F}$ of continuous functions is normal on a region $\Omega\subset\C$ if and only if
     \begin{enumerate}[label=(\roman*)]
         \item $\mathcal{F}$ is equicontinuous on $\Omega$, and
         \item there is a $z_0\in \Omega$ so that the collection $\{f(z_0):f\in\mathcal{F}\}$ is a bounded subset of $\C$.
     \end{enumerate}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Normal analytic families]
+\begin{theorem}[Normal analytic families]
     The following are equivalent for a family $\mathcal{F}$ of analytic functions on a region $\Omega$
     \begin{enumerate}[label=(\roman*)]
         \item $\mathcal{F}$ is normal on $\Omega$;
         \item $\mathcal{F}$ is locally bounded on $\Omega$;
         \item $\mathcal{F}'=\{f':f\in\mathcal{F}\}$ is locally bounded on $\Omega$ and there is a $z_0\in\Omega$ so that $\{f(z_0):f\in\mathcal{F}\}$ is a bounded subset of $\C$. 
     \end{enumerate}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Riemann Mapping Theorem $*$]
+\begin{theorem}[Riemann Mapping Theorem $*$]
     Suppose $\Omega\subset\C$ is simply-connected and $\Omega\neq\C$. Then there exists a one-to-one map $f$ of $\Omega$ onto $\D$. If $z_0\in\Omega$, then there is a unique such map with $f(z_0)=0$ and $f'(z_0)>0$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Mittag-Leffler]
+\begin{theorem}[Mittag-Leffler]
     Suppose $b_k\in\Omega\to\partial\Omega$ with $b_k\neq b_j$ if $k\neq j$. Set 
     \begin{equation*}
         S_k(z)=\sum_{j=1}^{n_k}\frac{c_{j,k}}{(z-b_k)^j},
     \end{equation*}
     where each $n_k$ is a positive integer and $c_{j,k}\in\C$. Then there is a function meromorphic in $\Omega$ with singular parts $S_k$ at $b_k$, $k=1,2,\dots$, and no other singularities in $\Omega$. 
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Weierstrass Product Theorem]
+\begin{theorem}[Weierstrass Product Theorem]
     Suppose $\Omega$ is a bounded region. If $\{b_j\}\subset\Omega$ with $b_j\to\partial\Omega$, and if $n_j$ are positive integers, then there exists an analytic function $f$ on $\Omega$ such that $f$ has a zero of order exactly $n_j$ at $b_j$, $j=1,2,\dots$, and no other zeros in $\Omega$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Jensen's formula]
+\begin{theorem}[Jensen's formula]
     Suppose $f$ is meromorphic on $|z|\leq R$ with zeros $\{a_k\}$ and poles $\{b_j\}$. Suppose also that $0$ is not a zero or a pole of $f$. Then
     \begin{equation*}
         \frac{1}{2\pi}\int_{-\pi}^\pi \log|f(Re^{it})|\,dt=\log|f(0)|+\sum_{a_k<R}\log\frac{R}{|a_k|}-\sum_{b_j<R}\log\frac{R}{|b_j|}.
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Monodromy]
+\begin{theorem}[Monodromy]
     Suppose $\Omega$ is simply-connected and suppose $f_0$ is defined and anakytic in a neighbourhood of $b\in\Omega$. If $f_0$ can be analytically continued along all curves in $\Omega$ beginning at $b$ then there is an analytic function $f$ on $\Omega$ so that $f=f_0$ in a neighbourhood of $b$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Green's function $*$]
+\begin{theorem}[Green's function $*$]
     Suppose $p_0\in W$ and suppose $z:U\to\D$ is a coordinate function such that $z(p_0)=0$. If $g_W(p,p_0)$ is exists, then 
     \begin{align*}
         &g_W(p,p_0)>0\quad \text{for } p\in W\setminus\{p_0\},\text{ and,}\\
         &g_W(p,p_0)+\log |z(p)|\quad\text{extends to be harmonic in } U.
     \end{align*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Green is symmetric if $W=\D$]
+\begin{theorem}[Green is symmetric if $W=\D$]
     Suppose $W$ is a Riemann surface for which Green's function $g_W$ with pole at $p$ exists, for some $p\in W$, and suppose $W^*=\D$. Then $g_W$ with pole at $q$ exists for all $q\in W$, and
     \begin{equation*}
         g_W(p,q)=g_W(q,p).
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Uniformisation case 1 $*$]
+\begin{theorem}[Uniformisation case 1 $*$]
     If $W$ is a simply-connected Riemann surface then the following are equivalent:
     \begin{enumerate}[label=(\roman*)]
         \item $g_W(p,p_0)$ exists for some $p_0\in W$,
@@ -291,17 +291,17 @@ for $z\in D(r,z_0)$.
         g_W(p_1,p_0)=g_W(p_0,p_1),
     \end{equation*}
     and $g_W(p,p_0)=-\log|\varphi(p)|$, where $\varphi(p_0)=0$.
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Green is symmetric general case]
+\begin{theorem}[Green is symmetric general case]
     Suppose $W$ is a Riemann surface for which Green's function $g_W$ with pole at $p$ exists, for some $p\in W$. Then $g_W$ with pole $q$ exists, for all $q\in W$, and 
     \begin{equation*}
         g_W(p,q)=g_W(q,p).
     \end{equation*}
-\end{sats}
+\end{theorem}
 
-\begin{sats}[Uniformisation case 2]
+\begin{theorem}[Uniformisation case 2]
     Suppose $W$ is a simply-connected Riemann surface for which Green's function does not exist. If $W$ is compact, then there is a one-to-one analytic map of $W$ onto $\C^*$. If $W$ is not compact, then there is a one-to.one analytic moap of $W$ onto $\C$.
-\end{sats}
+\end{theorem}
 
 \end{document}

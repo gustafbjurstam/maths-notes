@@ -1,6 +1,6 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 
-\usepackage{../mathsnotes}
+\input{../mathsnotes.tex}
 
 \begin{document}
 \begin{center}
@@ -30,6 +30,24 @@ bjurstam@kth.se\\
     Let $P$ be a set with a partial order relation $\leq$, and let $Q\subset P$. We say that $c\in P$ is an \textit{upper bound} for $Q$ if $a\leq c$ for all $a\in Q$. We say that $m\in P$ is a \textit{maximal element} of $P$ if there is no element $x\in P\setminus\set{m}$ such that $m\leq x$. If every totally ordered subset $Q$ of $P$ has an upper bound, we call $P$ \textit{inductive}.
 \end{definition}
 
+\begin{definition}
+    Let $E$ be a real normed vector space. We denote by $E^\star$ the \textit{dual space} of $E$, that is, the set of all continuous linear functionals on $E$. The \textit{dual norm} is defined by
+    \begin{equation*}
+        \norm{f}_{E^\star} = \sup_{\substack{x\in E\\ \norm{x} \leq 1}} f(x).
+    \end{equation*}
+    Given $f\in E^\star$ and $x\in E$ we may write $\inner{f}{x}$ instead of $f(x)$; we say that $\inner{}{}$ is the \textit{scalar product for the duality} $E^\star, E$. 
+\end{definition}
 
+\begin{definition}
+    Let $E$ be a normed vector space over $\real$. For every $x_0\in E$, we set 
+    \begin{equation*}
+        F(x_0) = \set{f_0\in E^\star : \norm{f_0} = \norm{x_0} \text{ and } \inner{f_0}{x_0} = \norm{x_0}^2}.
+    \end{equation*}
+    The map $x_0\mapsto F(x_0)$ is called the \textit{duality map} of $E$ into $E^\star$.
+\end{definition}
+
+\begin{definition}
+    Let $E$ be a real vector space. An \textit{affine hyperplane} is a subset $H$ of $E$ of the form $H= \set{x\in E : f(x) = \alpha}$ where $f$ is a linear functional not necessarily in $E^\star$, and $\alpha \in \real$ is a given constant.  We write $H=[f=\alpha]$ and say that $f=\alpha$ is the equation of $H$.
+\end{definition}
 
 \end{document}

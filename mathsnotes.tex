@@ -1,7 +1,7 @@
-\ProvidesPackage{mathsnotes}
+% Basic preamble with commands and packages
 
 % Document related packages
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=1in, a4paper]{geometry}
 \usepackage{parskip}
 \usepackage{enumitem}
 \usepackage{xcolor}
@@ -75,11 +75,14 @@
 % theorems
 \makeatletter
 \def\cleartheorem#1{%
-    \expandafter\let\csname#1\endcsname\relax
-    \expandafter\let\csname c@#1\endcsname\relax
+  % Undefine the environment start command (e.g., \lemma)
+  \expandafter\let\csname#1\endcsname\relax
+  % Undefine the environment end command (e.g., \endlemma)
+  \expandafter\let\csname end#1\endcsname\relax
+  % Undefine the counter (e.g., \c@lemma)
+  \expandafter\let\csname c@#1\endcsname\relax
+  % Undefine the numbering macro (e.g., \thelemma) - THIS IS THE MISSING PART
+  \expandafter\let\csname the#1\endcsname\relax
 }
 \makeatother
 \def\clearthms#1{ \@for\tname:=#1\do{\cleartheorem\tname} }
-
-
-\endinput
