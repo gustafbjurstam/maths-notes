@@ -5,9 +5,6 @@
 % Haim Brezis numbers the lemmas separately
 \cleartheorem{lemma}
 \theoremstyle{plain}
-
-
-
 \newtheorem{lemma}{Lemma}[section]
 
 \begin{document}
@@ -18,7 +15,7 @@ bjurstam@kth.se\\
 \end{center}
 
 \section{The Hahn-Banach Theorems. Introduction to Conjugate Convex Functions}
-\begin{theorem}[Hahn-Banach]
+\begin{theorem}[Hahn-Banach, analytic]
     Let $E$ be a vector space over $\real$, and let $p:E\to\real$ be a Minkowski functional. Let $G$ be a linear subspace of $E$ and let $g:G\to \real$ be a linear functional such that $g(x)\leq p(x)$ for all $x\in G$. There exists a linear functional $f:E\to \real$ such that
     \begin{equation*}
         f(x)=g(x),\, \forall x\in G,
@@ -52,6 +49,16 @@ bjurstam@kth.se\\
     Let $E$ be a real normed vector space, and let $H=[f=\alpha]\subset E$ be an affine hyperplane. Then $H$ is closed if and only $f$ is continuous.
 \end{proposition}
 
+\begin{theorem}[Hahn-Banach, 1st geometric]
+    Let $E$ be a normed vector space, and let $A,B\subset E$ be two nonempty convex subsets such that $A\cap B = \empty$. Assume $A$ is open, then there exists a closed hyperplane $H$ that separates $A$ and $B$.
+\end{theorem}
 
+\begin{lemma}
+    Let $E$ be a normed vector space, and let $C\subset E$ be an open convex set with $0\in C$. For every $x\in E$ set $p(x)= \inf \set{\alpha : \alpha^{-1}x\in C}$. Then $p$ is a Minkowski functional. Furthermore, there is a constant $M$ such that $0\leq p(x)\leq M\norm{x}$, and $C = \set{x\in E: p(x)<1}$.
+\end{lemma}
+
+\begin{lemma}
+    Let $E$ be a normed vector space, and let $C\subset E$ be an open convex set. Assume $x_0\in E\setminus C$. Then there exists $f\in E^\star$ such that $f(x)< f(x_0)$ for all $x\in C$. In particular, $[f=f(x_0)]$ separates $C$ and $\set{x_0}$.
+\end{lemma}
 
 \end{document}

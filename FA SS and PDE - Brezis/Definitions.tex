@@ -50,4 +50,16 @@ bjurstam@kth.se\\
     Let $E$ be a real vector space. An \textit{affine hyperplane} is a subset $H$ of $E$ of the form $H= \set{x\in E : f(x) = \alpha}$ where $f$ is a linear functional not necessarily in $E^\star$, and $\alpha \in \real$ is a given constant.  We write $H=[f=\alpha]$ and say that $f=\alpha$ is the equation of $H$.
 \end{definition}
 
+\begin{definition}
+    Let $E$ be a normed vector space. Let $A,B\subset E$, we say that the hyperplane $H=[f=\alpha]$ \textit{separates} $A$ and $B$ if $f(x)\leq \alpha$ for all $x\in A$ and $f(x)\geq \alpha$ for all $x\in B$. If there is $\eps>0$ such that $f(x)\leq \alpha-\eps, \forall x\in A$ and $f(x)\geq \alpha+\eps, \forall x\in B$, we say that $H$ \textit{strictly separates} $A$ and $B$.  
+\end{definition}
+
+\begin{definition}
+    Let $E$ be a normed vector space. We say that $A\subset E$ is convex if $tx +(1-t)x\in A$ for all $x,y\in A$ and $t\in [0,1]$.
+\end{definition}
+
+\begin{definition}
+    Let $E$ be a normed vector space, and let $C\subset E$ be an open convex set with $0\in C$. For every $x\in E$ set $p(x)= \inf \set{\alpha : \alpha^{-1}x\in C}$. We call $p$ the \textit{gauge of $C$} or the \textit{Minkowski functional of $C$}.
+\end{definition}
+
 \end{document}
