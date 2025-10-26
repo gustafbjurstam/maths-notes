@@ -31,17 +31,17 @@ bjurstam@kth.se\\
 \end{lemma}
 
 \begin{corollary}
-    Let $G$ be a linear subspace of the real vector space $E$. If $g\in G^\star$, then there exists $f\in E^\star$ that extends $g$ and such that $\norm{f}_{E^\star} = \norm{g}_{G^\star}$.
+    Let $G$ be a linear subspace of the real vector space $E$. If $g\in G\dual$, then there exists $f\in E\dual$ that extends $g$ and such that $\norm{f}_{E\dual} = \norm{g}_{G\dual}$.
 \end{corollary}
 
 \begin{corollary}
-    Let $E$ be a normed real vector space. For every $x\in E$ there is $f\in E^\star$ such that $\norm{f} = \norm{x}$ and $\inner{f}{x} = \norm{x}^2$.
+    Let $E$ be a normed real vector space. For every $x\in E$ there is $f\in E\dual$ such that $\norm{f} = \norm{x}$ and $\inner{f}{x} = \norm{x}^2$.
 \end{corollary}
 
 \begin{corollary}
     For every $x$ in the real normed vector space $E$ we have
     \begin{equation*}
-        \norm{x} = \sup_{\substack{f\in E^\star \\ \norm{f}\leq 1}} \abs{\inner{f}{x}} = \max_{\substack{f\in E^\star \\ \norm{f}\leq 1}} \abs{\inner{f}{x}}.
+        \norm{x} = \sup_{\substack{f\in E\dual \\ \norm{f}\leq 1}} \abs{\inner{f}{x}} = \max_{\substack{f\in E\dual \\ \norm{f}\leq 1}} \abs{\inner{f}{x}}.
     \end{equation*}
 \end{corollary}
 
@@ -58,7 +58,18 @@ bjurstam@kth.se\\
 \end{lemma}
 
 \begin{lemma}
-    Let $E$ be a normed vector space, and let $C\subset E$ be an open convex set. Assume $x_0\in E\setminus C$. Then there exists $f\in E^\star$ such that $f(x)< f(x_0)$ for all $x\in C$. In particular, $[f=f(x_0)]$ separates $C$ and $\set{x_0}$.
+    Let $E$ be a normed vector space, and let $C\subset E$ be an open convex set. Assume $x_0\in E\setminus C$. Then there exists $f\in E\dual$ such that $f(x)< f(x_0)$ for all $x\in C$. In particular, $[f=f(x_0)]$ separates $C$ and $\set{x_0}$.
 \end{lemma}
 
+\begin{theorem}[Hahn-Banach, 2nd geometric]
+    Let $E$ be a normed vector space, and let $A,B\subset E$ be two nonempty convex subsets such that $A\cap B = \empty$. Assume $A$ is closed and $B$ is compact, then there exists a closed hyperplane that strictly separates $A$ and $B$.
+\end{theorem}
+
+\begin{corollary}
+    Let $E$ be a normed vector space, and let $F\subset E$ be a linear subspace such that $\closure{F}\neq E$. Then there  is some $f\in E\dual\setminus\set{0}$ such that $\inner{f}{x} = 0$ for all $x\in F$. 
+\end{corollary}
+
+\begin{proposition}
+    Let $E$ be a normed vector space, and suppose $M$ is a linear subspace of $E$. Then $(M^\perp)^\perp = \closure{M}$. Furthermore, let $N$ be a linear subset of $E\dual$, then $(N^\perp)^\perp \supset \closure{N}$.
+\end{proposition}
 \end{document}
